@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Help-Nexus — Business Landing Page</title>
+  <link href="style2.css" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #bdccb3;
+      --surface: #12121a;
+      --accent: #c8ff00;
+      --accent2: #ff6b35;
+      --text: #6e5f43;
+      --muted: #8888a0;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 4rem;
+      backdrop-filter: blur(18px);
+      background: rgba(10,10,15,0.7);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.9rem; letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent); color: #0a0a0f;
+      border: none; padding: 0.6rem 1.4rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 500;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid; place-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(200,255,0,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255,107,53,0.06) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 860px; text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid rgba(200,255,0,0.3);
+      background: rgba(200,255,0,0.06);
+      color: var(--accent);
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.4rem 1rem; margin-bottom: 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 900; line-height: 1.0;
+      letter-spacing: -0.03em;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero-title em {
+      font-style: italic; color: var(--accent);
+    }
+    .hero-sub {
+      margin-top: 1.8rem;
+      font-size: 1.1rem; color: var(--muted);
+      max-width: 540px; margin-inline: auto;
+      line-height: 1.7;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-actions {
+      margin-top: 2.8rem;
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .btn-primary {
+      background: var(--accent); color: #0a0a0f;
+      border: none; padding: 0.9rem 2.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 500;
+      cursor: pointer; transition: transform 0.2s, opacity 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+    .btn-secondary {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.9rem 2.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--muted); }
+
+    .hero-stats {
+      margin-top: 4rem;
+      display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; font-weight: 700;
+      color: var(--text);
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; letter-spacing: 0.06em; }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 8rem 4rem;
+      max-width: 1200px; margin-inline: auto;
+    }
+    .section-label {
+      font-size: 0.75rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1.1;
+      letter-spacing: -0.02em;
+      max-width: 520px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5px;
+      margin-top: 4rem;
+      background: var(--border);
+    }
+    .feature-card {
+      background: var(--surface);
+      padding: 2.5rem;
+      transition: background 0.3s;
+    }
+    .feature-card:hover { background: #1a1a26; }
+    .feature-icon {
+      width: 44px; height: 44px;
+      border: 1px solid var(--border);
+      display: grid; place-items: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+    }
+    .feature-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+    .feature-card p {
+      font-size: 0.9rem; color: var(--muted); line-height: 1.7;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      padding: 8rem 4rem;
+      background: var(--surface);
+      position: relative; overflow: hidden;
+    }
+    .testimonials::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(200,255,0,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .testimonials-inner { max-width: 1200px; margin-inline: auto; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 4rem;
+    }
+    .testi-card {
+      border: 1px solid var(--border);
+      padding: 2rem;
+      transition: border-color 0.3s;
+    }
+    .testi-card:hover { border-color: rgba(200,255,0,0.2); }
+    .testi-quote {
+      font-size: 0.95rem; line-height: 1.8;
+      color: var(--muted); margin-bottom: 1.5rem;
+    }
+    .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+    .testi-avatar {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 0.85rem; font-weight: 700; color: #0a0a0f;
+    }
+    .testi-name { font-size: 0.9rem; font-weight: 500; }
+    .testi-role { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── PRICING ── */
+    .pricing {
+      padding: 8rem 4rem;
+      max-width: 1200px; margin-inline: auto; text-align: center;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5px; margin-top: 4rem; background: var(--border);
+      text-align: left;
+    }
+    .price-card {
+      background: var(--surface);
+      padding: 2.5rem;
+      position: relative;
+    }
+    .price-card.featured {
+      background: #16161f;
+      border-top: 2px solid var(--accent);
+    }
+    .price-badge {
+      position: absolute; top: -1px; right: 2rem;
+      background: var(--accent); color: #0a0a0f;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+    }
+    .price-tier {
+      font-size: 0.8rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .price-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 900;
+    }
+    .price-amount span { font-size: 1.2rem; color: var(--muted); }
+    .price-desc { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
+    .price-features {
+      margin: 2rem 0; list-style: none;
+      display: flex; flex-direction: column; gap: 0.7rem;
+    }
+    .price-features li {
+      font-size: 0.88rem; color: var(--muted);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .price-features li::before {
+      content: '✓'; color: var(--accent); font-size: 0.8rem;
+    }
+    .price-btn {
+      width: 100%; padding: 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .price-btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .price-btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .price-btn-filled {
+      background: var(--accent); color: #0a0a0f;
+      border: none; font-weight: 500;
+    }
+    .price-btn-filled:hover { opacity: 0.88; }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 8rem 4rem;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 70% at center, rgba(200,255,0,0.06) 0%, transparent 70%);
+    }
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900; line-height: 1.05;
+      letter-spacing: -0.03em;
+      position: relative;
+    }
+    .cta-section h2 em { font-style: italic; color: var(--accent); }
+    .cta-section p {
+      margin-top: 1.5rem; font-size: 1rem;
+      color: var(--muted); max-width: 420px; margin-inline: auto;
+      position: relative;
+    }
+    .cta-section .hero-actions { margin-top: 2.5rem; position: relative; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 900; color: var(--accent);
+    }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a {
+      font-size: 0.83rem; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero, .features, .testimonials, .pricing, .cta-section { padding-inline: 1.5rem; }
+      footer { padding-inline: 1.5rem; flex-direction: column; text-align: center; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Help-Nexus</div>
+  <ul class="nav-links">
+    <li><a href="#features">Services</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <button class="nav-cta">Get Started</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">✦ AI Powered</div>
+    <h1 class="hero-title">
+      Services<br>that help you<em>scale</em>
+    </h1>
+    <p class="hero-sub">
+      Help-Nexus helps you build your start-up faster and leaner.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary">Start with a sample →</button>
+      <button class="btn-secondary">Book a call</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">12k+</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4× </div>
+        <div class="stat-label">Faster Delivery</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-label">What we offer</div>
+  <h2 class="section-title">Everything you need, nothing you don't</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Data Entry Solutions</h3>
+      <p>Infrastructure built for speed. Deploy in seconds, serve globally, and never worry about downtime again.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>Data Pre-Processing</h3>
+      <p>SOC 2 compliant with end-to-end encryption. Your data is yours — always protected, never shared.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤝</div>
+      <h3>Market Research</h3>
+      <p>Work together seamlessly. Live cursors, shared workspaces, and instant sync across every device.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Data Analytics</h3>
+      <p>Understand what's working and what's not. Actionable insights powered by machine learning.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔌</div>
+      <h3>Digital Marketing</h3>
+      <p>Slack, GitHub, Figma, Notion, and more. Help-Nexus plugs into your existing workflow without friction.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛠</div>
+      <h3>AI First Platform</h3>
+      <p>Powerful APIs, webhooks, and SDKs. Build on top of Help-Nexus or extend it to fit your exact needs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-inner">
+    <div class="section-label">Testimonials</div>
+    <h2 class="section-title">Trusted by clients worldwide</h2>
+    <div class="testimonials-grid">
+      <div class="testi-card">
+        <p class="testi-quote">"Switching to Help-Nexus cut our deployment time in half. The team productivity gains have been absolutely staggering — I wish we'd found it sooner."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AK</div>
+          <div>
+            <div class="testi-name">Aisha Kamara</div>
+            <div class="testi-role">CTO, Meridian Labs</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">"The analytics alone are worth it. We finally understand our users and can make confident decisions instead of guessing. Game changer."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JS</div>
+          <div>
+            <div class="testi-name">James Solano</div>
+            <div class="testi-role">Head of Product, Skyline</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">"Best investment we made this year. The integrations saved us weeks of engineering work, and the support team is genuinely incredible."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">PL</div>
+          <div>
+            <div class="testi-name">Priya Lal</div>
+            <div class="testi-role">Founder, Draftly</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title" style="margin-inline:auto;">Pricing models</h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tier">Starter</div>
+      <div class="price-amount">$0<span>/mo</span></div>
+      <div class="price-desc">Perfect for side projects and early ideas.</div>
+      <ul class="price-features">
+        <li>3 projects</li>
+        <li>5 GB storage</li>
+        <li>Basic analytics</li>
+        <li>Community support</li>
+      </ul>
+      <button class="price-btn price-btn-outline">Get Started Free</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">Most Popular</div>
+      <div class="price-tier">Pro</div>
+      <div class="price-amount">$49<span>/mo</span></div>
+      <div class="price-desc">For growing teams that need more power.</div>
+      <ul class="price-features">
+        <li>Unlimited projects</li>
+        <li>100 GB storage</li>
+        <li>Advanced analytics</li>
+        <li>Priority support</li>
+        <li>All integrations</li>
+      </ul>
+      <button class="price-btn price-btn-filled">Start Pro Trial</button>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Enterprise</div>
+      <div class="price-amount" style="font-size:2rem;">Custom</div>
+      <div class="price-desc">Tailored for large-scale operations.</div>
+      <ul class="price-features">
+        <li>Unlimited everything</li>
+        <li>SSO & SAML</li>
+        <li>Dedicated manager</li>
+        <li>SLA guarantee</li>
+        <li>Custom contracts</li>
+      </ul>
+      <button class="price-btn price-btn-outline">Contact Sales</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to <em>grow</em><br>your business?</h2>
+  <p>Join thousands of teams already building the future with Help-Nexus.</p>
+  <div class="hero-actions">
+    <button class="btn-primary">Start for Free →</button>
+    <button class="btn-secondary">Talk to Sales</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Help-Nexus</div>
+  <ul class="footer-links">
+    <li><a href="#">Privacy</a></li>
+    <li><a href="#">Terms</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Help-Nexus Inc. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
