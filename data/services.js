@@ -16,29 +16,20 @@ window.SERVICES_DATA = [
     "id": "call-center",
     "label": "CALL CENTER\nSERVICES",
     "subServices": [
-      "Inbound Call Center",
-      "Outbound Call Center",
-      "Telemarketing Services",
-      "Lead Generation",
       "Customer Support",
       "Virtual Assistant",
-      "Call Center Monitoring",
       "Answering Services",
-      "Call Center Consulting"
     ]
   },
   {
-    "id": "engineering",
-    "label": "ENGINEERING\nSERVICES",
+    "id": "datapreprocessing",
+    "label": "DATA PREPROCESSING\nSERVICES",
     "subServices": [
-      "Mechanical Engineering",
-      "Architectural Services",
-      "Civil Engineering",
-      "Structural Engineering",
-      "Electrical Engineering",
-      "BIM Services",
-      "CAD Services",
-      "Infrastructure Engineering"
+      "Data Entry Services",
+      "Data Cleaning Services",
+      "Data Digitalization",
+      "Data Pipeline Creation",
+      "Data Unification"
     ]
   },
   {
@@ -48,9 +39,6 @@ window.SERVICES_DATA = [
       "Medical Billing",
       "Medical Coding",
       "Medical Transcription",
-      "Insurance Eligibility Verification",
-      "Revenue Cycle Management",
-      "Teleradiology Services",
       "Medical Data Entry",
       "Healthcare Call Center"
     ]
@@ -60,10 +48,6 @@ window.SERVICES_DATA = [
     "label": "CREATIVE\nSERVICES",
     "subServices": [
       "Graphic Design",
-      "Video Editing",
-      "Animation Services",
-      "Illustration Services",
-      "3D Modeling",
       "Storyboard Services",
       "Prepress Services",
       "Audio Editing",
@@ -79,8 +63,7 @@ window.SERVICES_DATA = [
       "eBook Conversion",
       "Data Processing",
       "OCR Services",
-      "Online Catalog Management",
-      "Property Management"
+      "Online Catalog Management"
     ]
   },
   {
