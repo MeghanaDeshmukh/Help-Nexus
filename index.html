@@ -540,7 +540,7 @@ function ArticleSections({ sections }) {
           case "heading1":   return <h1 key={i} id={s.id||undefined}>{s.text}</h1>;
           case "heading2":   return <h2 key={i} id={s.id||undefined}>{s.text}</h2>;
           case "paragraph":  return <p  key={i} id={s.id||undefined} dangerouslySetInnerHTML={{__html:s.text}} />;
-          case "bulletList": return <ul key={i} className="blist">{s.items.map((it,j)=><li key={j}>{it}</li>)}</ul>;
+          case "bulletList": return <ul key={i} className="blist">{s.items.map((it,j)=><li key={j} dangerouslySetInnerHTML={{__html:it}} />)}</ul>;
           default: return null;
         }
       })}
