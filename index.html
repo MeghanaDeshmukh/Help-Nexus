@@ -391,8 +391,9 @@ function ChatWidget({ onOpenContact }) {
       // Send via EmailJS
       try {
         await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          from_name:  newData.name,
-          from_email: newData.email,
+          to_email:   newData.email,
+          from_name:  newData.from_name || newData.name,
+          name:       newData.from_name || newData.name,
           service:    newData.service || "Not specified",
           message:    newData.message || "Chat lead — no message",
           subject:    BOT.leadCapture.emailSubject.replace("{name}", newData.name),
@@ -647,7 +648,7 @@ function ContactPage({ onGoBack }) {
     e.preventDefault(); setStatus("sending"); setErrMsg("");
     try {
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        from_name:`${form.fname} ${form.lname}`, from_email:form.email,
+        name:`${form.fname} ${form.lname}`, to_email:form.email,
         phone:form.phone, company:form.company||"N/A", country:form.country,
         service:form.service||"N/A", subject:form.subject,
         message:form.message, howheard:form.howheard||"N/A"
@@ -700,7 +701,7 @@ function ContactPage({ onGoBack }) {
                     <input type="text" name="lname" value={form.lname} onChange={handle} placeholder="Your last name" required /></div>
                 </div>
                 <div className="form-row">
-                  <div><label>Business Email <span className="required">*</span></label>
+                  <div><label>Email <span className="required">*</span></label>
                     <input type="email" name="email" value={form.email} onChange={handle} placeholder="your@company.com" required /></div>
                   <div><label>Phone Number <span className="required">*</span></label>
                     <input type="tel" name="phone" value={form.phone} onChange={handle} placeholder="+91 00000 00000" required /></div>
