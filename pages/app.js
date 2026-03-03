@@ -218,11 +218,37 @@ function Footer() {
         </div>
         <div>
           <h4>Services</h4>
-          <ul>{SERVICES.map(svc => <li key={svc.id}><a href="#">{svc.label.replace("\n"," ")}</a></li>)}</ul>
+          <ul>{SERVICES.map(svc => (
+            <li key={svc.id}>
+              <a href="#" onClick={e => {
+                e.preventDefault();
+                if (_setActiveSvc) _setActiveSvc(svc.id);
+                if (_setPage) _setPage("services");
+                window.scrollTo({ top:0, behavior:"smooth" });
+              }}>{svc.label.replace("\n"," ")}</a>
+            </li>
+          ))}</ul>
         </div>
         <div>
           <h4>Quick Links</h4>
-          <ul>{footer.quickLinks.map((l, i) => <li key={i}><a href={l.href}>{l.label}</a></li>)}</ul>
+          <ul>{footer.quickLinks.map((l, i) => {
+            const FOOTER_MAP = {
+              "about us":    "about",
+              "how we work": "howwework",
+              "case studies":"stories",
+              "testimonials":"testimonials",
+              "careers":     "contact",
+            };
+            const pageId = FOOTER_MAP[l.label.toLowerCase()];
+            return (
+              <li key={i}>
+                <a href="#" onClick={e => {
+                  e.preventDefault();
+                  if (pageId && _setPage) { _setPage(pageId); window.scrollTo({ top:0, behavior:"smooth" }); }
+                }}>{l.label}</a>
+              </li>
+            );
+          })}</ul>
         </div>
       </div>
       <div className="footer-bottom"><div className="footer-bottom-inner"><p>{footer.bottomText}</p></div></div>
