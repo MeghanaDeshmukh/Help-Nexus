@@ -16,9 +16,9 @@ window.SERVICES_DATA = [
     "id": "call-center",
     "label": "CALL CENTER\nSERVICES",
     "subServices": [
-      "Customer Support",
-      "Virtual Assistant",
-      "Answering Services",
+      { "name": "Customer Support", "description": "Your text here..." },
+      { "name": "Virtual Assistant", "description": "Your text here..." },
+      { "name": "Answering Services", "description": "Your text here..." },
     ]
   },
   {
@@ -36,11 +36,11 @@ window.SERVICES_DATA = [
     "id": "healthcare",
     "label": "HEALTHCARE\nBPO",
     "subServices": [
-      "Medical Billing",
-      "Medical Coding",
-      "Medical Transcription",
-      "Medical Data Entry",
-      "Healthcare Call Center"
+      { "name": "Medical Billing", "description": "Your text here..." },
+      { "name": "Medical Coding", "description": "Your text here..." },
+      { "name": "Medical Transcription", "description": "Your text here..." },
+      { "name": "Medical Data Entry", "description": "Your text here..." },
+      { "name": "Medical Call Center", "description": "Your text here..." },
     ]
   },
   {

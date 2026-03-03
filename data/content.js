@@ -82,9 +82,7 @@ window.CONTENT_DATA = {
 
     "tabNav": [
       { "label": "About Us",        "anchor": "about"     },
-      { "label": "Customers",       "anchor": "customers" },
       { "label": "How We Work",     "anchor": "s1"        },
-      { "label": "Management Team", "anchor": "s2"        },
       { "label": "Success Stories", "anchor": "strengths" },
       { "label": "Testimonials",    "anchor": "team"      }
     ],
@@ -92,9 +90,8 @@ window.CONTENT_DATA = {
     "tocLinks": [
       { "label": "Our Goal",                    "anchor": "vision"    },
       { "label": "What Can You Expect From Us?","anchor": "expect"    },
-      { "label": "Our Strengths",               "anchor": "strengths" },
-      { "label": "Our Team",                    "anchor": "team"      },
-      { "label": "Quality",                     "anchor": "quality"   }
+      /*{ "label": "Our Strengths",               "anchor": "strengths" },
+      { "label": "Quality",                     "anchor": "quality"   }*/
     ],
 
     /* Main article — add/remove/reorder blocks freely */
@@ -104,8 +101,6 @@ window.CONTENT_DATA = {
       { "id": "vision",          "type": "heading2",  "text": "Our Vision & Mission" },
       { "id": null,              "type": "paragraph", "text": "<strong>Vision:</strong> To become a globally recognized and trusted outsourcing partner, delivering excellence in business process management through innovation, operational discipline, and unwavering commitment to quality. \n We envision HelpNexus as a strategic extension of our clients’ organizations — enabling businesses across industries to scale faster, operate smarter, and compete confidently in an increasingly digital and data-driven world. \n Our long-term vision is to build a sustainable, technology-enabled BPO ecosystem that combines skilled human expertise with intelligent process systems to create measurable impact for every client we serve. \n " },
       { "id": null,              "type": "paragraph", "text": "<strong>Mission:</strong> At HelpNexus, our mission is to deliver reliable, accurate, and scalable outsourcing solutions that reduce operational burdens and improve overall business efficiency. \n We are committed to maintaining the highest standards of data security, quality assurance, and process transparency across every project. Through continuous training, structured workflows, and performance monitoring, we ensure consistency and precision in every task we undertake. \n Our mission is also to build strong, long-term partnerships by understanding our clients’ unique needs and delivering customized solutions that drive growth, cost optimization, and operational stability. \n At the same time, we strive to create a professional work environment that nurtures skill development, accountability, and leadership — empowering our team to consistently exceed client expectations." },
-      { "id": "customers",      "type": "heading2",  "text": "Our Customers" },
-      { "id": null,              "type": "paragraph", "text": "" },
       { "id": "expect",          "type": "heading2",  "text": "What Can You Expect From Us?" },
       { "id": null,              "type": "paragraph", "text": "List what clients can expect when working with you:" },
       { "id": null,              "type": "bulletList","items": [
@@ -126,16 +121,14 @@ window.CONTENT_DATA = {
           "<strong>Commitment to Deadlines:</strong> We understand that delays affect business operations. Our structured planning and execution model ensures projects are delivered within agreed timelines.",
           "<strong>Client-Centric Mindset:</strong> We treat every client partnership as long-term. Understanding your goals and challenges allows us to provide customized solutions that add real value."
       ]},
-      { "id": "team",            "type": "heading2",  "text": "Our Team" },
-      { "id": null,              "type": "paragraph", "text": "At HelpNexus, our strength lies in our people. Our team is composed of dedicated, detail-oriented, and professionally trained individuals who understand the responsibility that comes with handling critical business processes. \nEach team member undergoes structured training to ensure accuracy, efficiency, and adherence to defined workflows. We emphasize discipline, accountability, and continuous learning to maintain consistent performance across all projects. \n Our leadership team brings operational insight and hands-on management experience, ensuring that every project is supervised, monitored, and executed with precision. Clear communication, collaboration, and problem-solving are core principles within our team culture.\n We believe that a strong, motivated workforce is the foundation of reliable outsourcing. That’s why we invest in skill development, performance evaluation, and quality improvement initiatives to ensure our clients receive dependable and scalable support.\n At HelpNexus, we don’t just complete tasks — we take ownership of results." },
-      { "id": "expertise",       "type": "heading2",  "text": "Our Expertise" },
+      /*{ "id": "expertise",       "type": "heading2",  "text": "Our Expertise" },
       { "id": null,              "type": "paragraph", "text": "At HelpNexus, we specialize in delivering reliable and process-driven outsourcing solutions that help businesses operate efficiently and scale with confidence. Our expertise spans multiple operational domains, supported by structured workflows and strict quality control systems." },
       { "id": "quality",         "type": "heading2",  "text": "Quality" },
       { "id": null,              "type": "paragraph", "text": "At HelpNexus, quality is not an afterthought — it is the foundation of our operations. Every project we undertake is executed through structured workflows, defined performance benchmarks, and multi-level quality checks to ensure accuracy and consistency. \nWe follow a systematic approach that includes task validation, cross-verification, and continuous monitoring to minimize errors and maintain high precision levels. Our team is trained to adhere strictly to client guidelines, ensuring outputs align perfectly with expectations.\n" },
       { "id": null,              "type": "paragraph", "text": "Quality control is embedded at every stage of the process — from initial task execution to final delivery. We analyze performance metrics, identify improvement areas, and implement corrective measures to maintain consistent standards across all projects. \nWe believe that reliable outsourcing is built on discipline, accountability, and measurable results. That is why we focus on continuous training, process refinement, and performance tracking to deliver dependable outcomes every time.\nAt HelpNexus, quality is not a promise — it is a standard.\n" },
       { "id": "confidentiality", "type": "heading2",  "text": "Confidentiality and Privacy" },
       { "id": null,              "type": "paragraph", "text": "At HelpNexus, we understand that client data is highly sensitive and must be handled with the utmost responsibility. Protecting confidentiality and maintaining privacy are core principles embedded into our operational framework. \nWe implement strict access control measures to ensure that information is only accessible to authorized personnel directly assigned to a project. All data is handled through secure systems and structured protocols designed to prevent unauthorized access, misuse, or data leakage. \n Our team members are trained to follow confidentiality guidelines and adhere to disciplined data-handling procedures at all times. We emphasize accountability, ethical conduct, and secure workflow practices across every level of the organization. \n We are committed to maintaining transparency, compliance, and data integrity while delivering outsourcing services. Safeguarding client information is not just a requirement — it is a responsibility we take seriously in every engagement." },
-      { "id": "closing",         "type": "heading2",  "text": "Ready to Get Started?" },
+      */{ "id": "closing",         "type": "heading2",  "text": "Ready to Get Started?" },
       { "id": null,              "type": "paragraph", "text": "Partner with HelpNexus and experience reliable, structured, and scalable outsourcing solutions designed to support your business growth. \nWhether you need precise data processing, professional back-office support, or dedicated project handling, our team is ready to deliver accuracy, efficiency, and measurable results.\nLet us simplify your operations so you can focus on strategy, expansion, and innovation.\nContact us today to discuss your requirements and discover how HelpNexus can become your trusted outsourcing partner." }
     ]
   },

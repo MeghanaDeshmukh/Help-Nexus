@@ -7,224 +7,349 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* ── Page transitions ────────────────────────────────── */
     .page-enter { animation: fadeIn 0.22s ease; }
     @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-
-    .tab-nav-inner a.active {
-      background: var(--color-primary-light);
-      color: #fff;
-      border-color: var(--color-primary-light);
-    }
-    .contact-btn-react {
-      background:var(--color-accent); color:#fff !important;
-      font-size:13px; font-weight:700; padding:9px 20px;
-      letter-spacing:.04em; border-radius:2px; white-space:nowrap;
-      cursor:pointer; border:none; font-family:inherit; transition:background .2s ease;
-    }
+    .tab-nav-inner a.active { background:var(--color-primary-light); color:#fff; border-color:var(--color-primary-light); }
+    .contact-btn-react { background:var(--color-accent); color:#fff !important; font-size:13px; font-weight:700; padding:9px 20px; letter-spacing:.04em; border-radius:2px; white-space:nowrap; cursor:pointer; border:none; font-family:inherit; transition:background .2s ease; }
     .contact-btn-react:hover { background:var(--color-accent-dark); }
-    .back-btn {
-      display:inline-flex; align-items:center; gap:6px;
-      background:none; border:1px solid var(--color-primary);
-      color:var(--color-primary); font-size:13px; font-weight:600;
-      padding:7px 16px; border-radius:2px; cursor:pointer;
-      font-family:inherit; margin-bottom:20px; transition:all .15s ease;
-    }
+    .back-btn { display:inline-flex; align-items:center; gap:6px; background:none; border:1px solid var(--color-primary); color:var(--color-primary); font-size:13px; font-weight:600; padding:7px 16px; border-radius:2px; cursor:pointer; font-family:inherit; margin-bottom:20px; transition:all .15s ease; }
     .back-btn:hover { background:var(--color-primary); color:#fff; }
-    .form-error-banner {
-      background:#fff0f0; border:1px solid #fcc;
-      border-left:4px solid #e53935; padding:12px 16px;
-      border-radius:2px; margin-bottom:16px; font-size:13.5px; color:#c62828;
-    }
+    .form-error-banner { background:#fff0f0; border:1px solid #fcc; border-left:4px solid #e53935; padding:12px 16px; border-radius:2px; margin-bottom:16px; font-size:13.5px; color:#c62828; }
     .success-msg { display:block !important; }
-
-    /* ════════════════════════════════════════════════════════
-       CHAT WIDGET
-    ════════════════════════════════════════════════════════ */
+    /* ── Shared page styles (used across multiple page files) ── */
+    .simple-page-wrap { max-width:900px; margin:0 auto; padding:48px 24px 80px; }
+    .simple-page-wrap h1 { font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:700; margin-bottom:12px; color:var(--color-primary,#1a1a2e); display:inline-block; line-height:1.3; letter-spacing:0; }
+    .simple-page-wrap h2 { font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:700; margin:28px 0 10px; color:var(--color-primary,#1a1a2e); display:inline-block; line-height:1.3; letter-spacing:0; }
+    .simple-page-wrap p  { line-height:1.75; color:#444; margin-bottom:14px; }
+    .simple-page-wrap ul { padding-left:20px; margin-bottom:16px; }
+    .simple-page-wrap ul li { line-height:1.75; color:#444; margin-bottom:8px; }
+    .placeholder-card { background:#f7f8fc; border:2px dashed #d0d4e8; border-radius:8px; padding:40px 32px; text-align:center; color:#888; margin:32px 0; }
+    .placeholder-card .ph-icon { font-size:2.5rem; margin-bottom:12px; }
+    .placeholder-card p { color:#999; font-size:14px; margin:0; }
+    .testimonial-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; margin-top:28px; }
+    .testimonial-card { background:#fff; border:1px solid #e8eaf0; border-radius:10px; padding:24px 20px; box-shadow:0 2px 12px rgba(0,0,0,.05); }
+    .testimonial-card .stars { color:#f5a623; font-size:15px; margin-bottom:10px; }
+    .testimonial-card .quote { font-size:14px; line-height:1.7; color:#444; margin-bottom:16px; font-style:italic; }
+    .testimonial-card .author { font-weight:700; font-size:13px; color:#222; }
+    .testimonial-card .role   { font-size:12px; color:#888; }
+    .team-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:24px; margin-top:28px; }
+    .team-card { background:#fff; border:1px solid #e8eaf0; border-radius:10px; padding:28px 20px; text-align:center; box-shadow:0 2px 12px rgba(0,0,0,.05); }
+    .team-avatar { width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg,var(--color-primary-light,#3a5bd9),var(--color-accent,#e8524a)); margin:0 auto 14px; display:flex; align-items:center; justify-content:center; font-size:1.6rem; color:#fff; font-weight:700; }
+    .team-card .t-name { font-weight:700; font-size:14px; color:#1a1a2e; margin-bottom:4px; display:inline-block; line-height:1.3; }
+    .team-card .t-role { font-size:12px; color:#888; }
+    .steps-list { list-style:none; padding:0; margin:28px 0; }
+    .steps-list li { display:flex; gap:20px; align-items:flex-start; margin-bottom:28px; }
+    .step-num { flex-shrink:0; width:44px; height:44px; border-radius:50%; background:var(--color-primary-light,#3a5bd9); color:#fff; font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; display:flex; align-items:center; justify-content:center; }
+    .step-body h3 { font-size:15px; font-weight:700; margin:0 0 6px; color:#1a1a2e; }
+    .step-body p  { font-size:14px; color:#555; line-height:1.65; margin:0; }
+    .story-card { background:#fff; border:1px solid #e8eaf0; border-left:4px solid var(--color-primary-light,#3a5bd9); border-radius:8px; padding:24px 22px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+    .story-card h3 { font-size:14px; font-weight:700; margin:0 0 8px; color:#1a1a2e; display:inline-block; line-height:1.3; }
+    .story-card p  { font-size:13.5px; color:#555; line-height:1.7; margin:0; }
+    .story-stat { display:inline-block; background:#f0f3ff; color:var(--color-primary-light,#3a5bd9); font-weight:700; font-size:13px; padding:3px 10px; border-radius:20px; margin-top:10px; }
+    .industry-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:20px; margin-top:20px; }
+    .industry-card { background:#fff; border:1px solid #e8eaf0; border-radius:10px; padding:22px 20px; box-shadow:0 2px 10px rgba(0,0,0,.04); }
+    .industry-card .ind-icon { font-size:2rem; margin-bottom:10px; }
+    .industry-card .ind-name { font-weight:700; font-size:14px; margin-bottom:6px; color:#1a1a2e; display:inline-block; line-height:1.3; }
+    .industry-card .ind-desc { font-size:13.5px; color:#555; line-height:1.65; }
+    /* ── Chat widget ── */
     .cw-root * { box-sizing:border-box; margin:0; padding:0; }
-    .cw-root {
-      font-family:'DM Sans', sans-serif;
-      position:fixed; bottom:28px; right:28px; z-index:9999;
-    }
-
-    /* FAB */
-    .cw-fab {
-      width:60px; height:60px; border-radius:16px;
-      background:#0a0a0a; border:none; cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
-      box-shadow:0 8px 32px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.2);
-      transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;
-      position:relative; overflow:hidden;
-    }
-    .cw-fab::before {
-      content:''; position:absolute; inset:0;
-      background:linear-gradient(135deg,#e8ff47 0%,#00e5ff 100%);
-      opacity:0; transition:opacity .2s;
-    }
+    .cw-root { font-family:'DM Sans',sans-serif; position:fixed; bottom:28px; right:28px; z-index:9999; }
+    .cw-fab { width:60px; height:60px; border-radius:16px; background:#0a0a0a; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 32px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.2); transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s; position:relative; overflow:hidden; }
+    .cw-fab::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,#e8ff47 0%,#00e5ff 100%); opacity:0; transition:opacity .2s; }
     .cw-fab:hover { transform:scale(1.08); box-shadow:0 12px 40px rgba(0,0,0,.4); }
     .cw-fab:hover::before { opacity:1; }
     .cw-fab svg { position:relative; z-index:1; transition:color .2s; }
     .cw-fab:hover svg { color:#0a0a0a !important; }
-    .cw-dot {
-      position:absolute; top:8px; right:8px;
-      width:10px; height:10px; background:#e8ff47;
-      border-radius:50%; border:2px solid #0a0a0a;
-      animation:cw-pulse 2s infinite;
-    }
+    .cw-dot { position:absolute; top:8px; right:8px; width:10px; height:10px; background:#e8ff47; border-radius:50%; border:2px solid #0a0a0a; animation:cw-pulse 2s infinite; }
     @keyframes cw-pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.3);opacity:.7} }
-
-    /* Window */
-    .cw-window {
-      position:absolute; bottom:72px; right:0;
-      width:370px; max-height:560px;
-      background:#0a0a0a; border-radius:24px;
-      display:flex; flex-direction:column; overflow:hidden;
-      box-shadow:0 24px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.07);
-      transform-origin:bottom right;
-      animation:cw-open .3s cubic-bezier(.34,1.56,.64,1);
-    }
+    .cw-window { position:absolute; bottom:72px; right:0; width:370px; max-height:560px; background:#0a0a0a; border-radius:24px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 24px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.07); transform-origin:bottom right; animation:cw-open .3s cubic-bezier(.34,1.56,.64,1); }
     @keyframes cw-open { from{transform:scale(0.7);opacity:0} to{transform:scale(1);opacity:1} }
-
-    /* Header */
-    .cw-header {
-      padding:18px 20px 14px; background:#111;
-      border-bottom:1px solid rgba(255,255,255,.06); flex-shrink:0;
-    }
+    .cw-header { padding:18px 20px 14px; background:#111; border-bottom:1px solid rgba(255,255,255,.06); flex-shrink:0; }
     .cw-header-top { display:flex; align-items:center; justify-content:space-between; }
     .cw-title { font-family:'Syne',sans-serif; font-weight:800; font-size:15px; color:#fff; letter-spacing:-.3px; }
     .cw-status { display:flex; align-items:center; gap:6px; font-size:11px; color:rgba(255,255,255,.4); }
     .cw-status-dot { width:6px; height:6px; background:#e8ff47; border-radius:50%; }
-    .cw-close {
-      background:rgba(255,255,255,.07); border:none; color:rgba(255,255,255,.5);
-      width:28px; height:28px; border-radius:8px; cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
-      transition:background .15s,color .15s; margin-left:10px;
-    }
+    .cw-close { background:rgba(255,255,255,.07); border:none; color:rgba(255,255,255,.5); width:28px; height:28px; border-radius:8px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s,color .15s; margin-left:10px; }
     .cw-close:hover { background:rgba(255,255,255,.12); color:#fff; }
     .cw-accent-bar { height:2px; background:linear-gradient(90deg,#e8ff47,#00e5ff); border-radius:2px; margin-top:10px; width:40px; }
-
-    /* Messages */
-    .cw-messages {
-      flex:1; overflow-y:auto; padding:14px 14px 6px;
-      display:flex; flex-direction:column; gap:10px;
-      scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.1) transparent;
-      min-height:0;
-    }
+    .cw-messages { flex:1; overflow-y:auto; padding:14px 14px 6px; display:flex; flex-direction:column; gap:10px; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.1) transparent; min-height:0; }
     .cw-messages::-webkit-scrollbar { width:4px; }
     .cw-messages::-webkit-scrollbar-thumb { background:rgba(255,255,255,.1); border-radius:4px; }
-
     .cw-msg { display:flex; flex-direction:column; max-width:85%; animation:cw-msg-in .18s ease; }
     @keyframes cw-msg-in { from{transform:translateY(5px);opacity:0} to{transform:translateY(0);opacity:1} }
-    .cw-msg.user      { align-self:flex-end;  align-items:flex-end;  }
-    .cw-msg.bot       { align-self:flex-start; align-items:flex-start; }
-
-    .cw-bubble {
-      padding:10px 14px; border-radius:16px;
-      font-size:13px; line-height:1.55;
-    }
-    .cw-msg.user .cw-bubble {
-      background:linear-gradient(135deg,#e8ff47,#c8e000);
-      color:#0a0a0a; border-bottom-right-radius:4px; font-weight:500;
-    }
-    .cw-msg.bot .cw-bubble {
-      background:#1c1c1c; color:rgba(255,255,255,.88);
-      border-bottom-left-radius:4px; border:1px solid rgba(255,255,255,.06);
-    }
-
-    /* Typing */
-    .cw-typing {
-      display:flex; align-items:center; gap:4px; padding:12px 14px;
-      background:#1c1c1c; border-radius:16px; border-bottom-left-radius:4px;
-      border:1px solid rgba(255,255,255,.06); width:fit-content;
-    }
+    .cw-msg.user { align-self:flex-end; align-items:flex-end; }
+    .cw-msg.bot  { align-self:flex-start; align-items:flex-start; }
+    .cw-bubble { padding:10px 14px; border-radius:16px; font-size:13px; line-height:1.55; }
+    .cw-msg.user .cw-bubble { background:linear-gradient(135deg,#e8ff47,#c8e000); color:#0a0a0a; border-bottom-right-radius:4px; font-weight:500; }
+    .cw-msg.bot  .cw-bubble { background:#1c1c1c; color:rgba(255,255,255,.88); border-bottom-left-radius:4px; border:1px solid rgba(255,255,255,.06); }
+    .cw-typing { display:flex; align-items:center; gap:4px; padding:12px 14px; background:#1c1c1c; border-radius:16px; border-bottom-left-radius:4px; border:1px solid rgba(255,255,255,.06); width:fit-content; }
     .cw-typing span { width:6px; height:6px; background:rgba(255,255,255,.3); border-radius:50%; animation:cw-bounce 1.2s infinite; }
     .cw-typing span:nth-child(2) { animation-delay:.2s; }
     .cw-typing span:nth-child(3) { animation-delay:.4s; }
     @keyframes cw-bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px);background:#e8ff47} }
-
-    /* Quick reply chips */
     .cw-chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; max-width:320px; }
-    .cw-chip {
-      background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14);
-      color:rgba(255,255,255,.8); font-size:11.5px; padding:5px 11px;
-      border-radius:20px; cursor:pointer; font-family:'DM Sans',sans-serif;
-      transition:background .15s,border-color .15s; white-space:nowrap;
-    }
+    .cw-chip { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); color:rgba(255,255,255,.8); font-size:11.5px; padding:5px 11px; border-radius:20px; cursor:pointer; font-family:'DM Sans',sans-serif; transition:background .15s,border-color .15s; white-space:nowrap; }
     .cw-chip:hover { background:rgba(232,255,71,.15); border-color:rgba(232,255,71,.4); color:#e8ff47; }
-
-    /* Inline button inside bot message (e.g. "open contact form") */
-    .cw-inline-btn {
-      background:none; border:1px solid rgba(232,255,71,.5); color:#e8ff47;
-      font-size:12.5px; padding:3px 10px; border-radius:12px; cursor:pointer;
-      font-family:'DM Sans',sans-serif; transition:background .15s;
-    }
+    .cw-inline-btn { background:none; border:1px solid rgba(232,255,71,.5); color:#e8ff47; font-size:12.5px; padding:3px 10px; border-radius:12px; cursor:pointer; font-family:'DM Sans',sans-serif; transition:background .15s; }
     .cw-inline-btn:hover { background:rgba(232,255,71,.15); }
-
-    /* Contact CTA card inside chat */
-    .cw-contact-cta {
-      background:#1a1a1a; border:1px solid rgba(255,255,255,.1);
-      border-radius:12px; padding:12px 14px; margin-top:4px;
-      font-size:12.5px; color:rgba(255,255,255,.7);
-    }
-    .cw-contact-cta-btn {
-      display:block; width:100%; margin-top:10px;
-      background:linear-gradient(135deg,#e8ff47,#c8e000);
-      color:#0a0a0a; border:none; border-radius:10px;
-      padding:9px; font-weight:700; font-size:13px;
-      cursor:pointer; font-family:'DM Sans',sans-serif;
-      transition:opacity .15s;
-    }
+    .cw-contact-cta { background:#1a1a1a; border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:12px 14px; margin-top:4px; font-size:12.5px; color:rgba(255,255,255,.7); }
+    .cw-contact-cta-btn { display:block; width:100%; margin-top:10px; background:linear-gradient(135deg,#e8ff47,#c8e000); color:#0a0a0a; border:none; border-radius:10px; padding:9px; font-weight:700; font-size:13px; cursor:pointer; font-family:'DM Sans',sans-serif; transition:opacity .15s; }
     .cw-contact-cta-btn:hover { opacity:.88; }
-
-    /* Lead input */
-    .cw-lead-input {
-      background:#1c1c1c; border:1px solid rgba(255,255,255,.12);
-      color:#fff; border-radius:10px; padding:9px 12px;
-      font-size:13px; font-family:'DM Sans',sans-serif;
-      width:100%; outline:none; margin-top:6px;
-      transition:border-color .15s;
-    }
-    .cw-lead-input:focus { border-color:rgba(232,255,71,.4); }
-
-    /* Input area */
-    .cw-input-area {
-      padding:10px 12px 14px; background:#111;
-      border-top:1px solid rgba(255,255,255,.06);
-      display:flex; gap:8px; align-items:flex-end; flex-shrink:0;
-    }
-    .cw-input {
-      flex:1; background:#1c1c1c; border:1px solid rgba(255,255,255,.08);
-      border-radius:12px; color:#fff; font-family:'DM Sans',sans-serif;
-      font-size:13px; padding:9px 13px; resize:none; outline:none;
-      transition:border-color .15s; max-height:90px; line-height:1.4;
-    }
+    .cw-input-area { padding:10px 12px 14px; background:#111; border-top:1px solid rgba(255,255,255,.06); display:flex; gap:8px; align-items:flex-end; flex-shrink:0; }
+    .cw-input { flex:1; background:#1c1c1c; border:1px solid rgba(255,255,255,.08); border-radius:12px; color:#fff; font-family:'DM Sans',sans-serif; font-size:13px; padding:9px 13px; resize:none; outline:none; transition:border-color .15s; max-height:90px; line-height:1.4; }
     .cw-input::placeholder { color:rgba(255,255,255,.25); }
     .cw-input:focus { border-color:rgba(232,255,71,.4); }
-    .cw-send {
-      width:38px; height:38px; border-radius:10px; background:#e8ff47;
-      border:none; cursor:pointer; display:flex; align-items:center;
-      justify-content:center; flex-shrink:0; transition:transform .15s,background .15s;
-    }
+    .cw-send { width:38px; height:38px; border-radius:10px; background:#e8ff47; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .15s,background .15s; }
     .cw-send:hover { transform:scale(1.06); background:#d4eb2a; }
     .cw-send:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+
+    /* == Services Page == */
+    .svc-page-jumps { display:flex; flex-wrap:wrap; gap:10px; max-width:960px; margin:0 auto; padding:20px 24px 0; }
+    .svc-jump-link { background:#f0f3ff; color:var(--color-primary-light,#3a5bd9); border:1px solid #d0d8f8; font-size:12.5px; font-weight:600; padding:6px 14px; border-radius:20px; text-decoration:none; white-space:nowrap; transition:background .15s,color .15s; }
+    .svc-jump-link:hover { background:var(--color-primary-light,#3a5bd9); color:#fff; border-color:transparent; }
+    .svc-page-wrap { max-width:960px; margin:0 auto; padding:32px 24px 80px; }
+    .svc-section { border:1px solid #e8eaf0; border-radius:12px; padding:36px 32px 28px; margin-bottom:36px; background:#fff; box-shadow:0 2px 12px rgba(0,0,0,.04); scroll-margin-top:80px; }
+    .svc-section-header { display:flex; align-items:flex-start; gap:20px; margin-bottom:28px; }
+    .svc-section-num { flex-shrink:0; font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; color:var(--color-primary-light,#3a5bd9); opacity:.18; line-height:1; }
+    .svc-section-title { font-family:'Syne',sans-serif; font-size:1rem; font-weight:700; color:var(--color-primary,#1a1a2e); margin:0 0 4px; display:inline-block; line-height:1.3; letter-spacing:0; }
+    .svc-section-sub { font-size:13.5px; color:#777; margin:0; }
+    .svc-cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px; margin-bottom:28px; }
+    .svc-card { background:#f7f8fc; border:1px solid #e4e8f4; border-radius:8px; padding:16px 14px; transition:box-shadow .15s,border-color .15s; }
+    .svc-card:hover { box-shadow:0 4px 16px rgba(58,91,217,.1); border-color:var(--color-primary-light,#3a5bd9); }
+    .svc-card-icon { width:28px; height:28px; border-radius:50%; background:var(--color-primary-light,#3a5bd9); color:#fff; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-bottom:10px; }
+    .svc-card-name { font-size:13.5px; font-weight:600; color:#1a1a2e; line-height:1.4; }
+    .svc-card-desc { font-size:12px; color:#666; line-height:1.55; margin-top:6px; }
+    .svc-section-cta { text-align:right; }
+
+    /* ============================================================
+       ABOUT PAGE
+    ============================================================ */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px 80px 32px;
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .about-layout { grid-template-columns: 1fr; margin: 0 auto; padding: 32px 16px 80px; }
+      .about-sidebar { position: static !important; }
+    }
+
+    /* 2-per-row card grid */
+    .about-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 640px) {
+      .about-cards-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Individual card — uniform height */
+    .about-card {
+      background: #fff;
+      border: 1px solid #e8eaf0;
+      border-radius: 10px;
+      padding: 22px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+      scroll-margin-top: 80px;
+      display: flex;
+      flex-direction: column;
+    }
+    .about-card-heading {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-primary, #1a1a2e);
+      margin: 0 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--color-primary-light, #3a5bd9);
+      display: inline-block;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+    .about-sections { min-width: 0; padding-right: 20px; }
+    .about-section-body { flex: 1; }
+    .about-section-body p  { font-size: 13.5px; line-height: 1.75; color: #444; margin-bottom: 9px; }
+    .about-section-body p:last-child { margin-bottom: 0; }
+    .about-blist { padding-left: 16px; margin: 0 0 9px; }
+    .about-blist li { font-size: 13.5px; line-height: 1.7; color: #444; margin-bottom: 6px; }
+
+    /* Sticky sidebar */
+    .about-sidebar {
+      position: sticky;
+      top: 72px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0;
+      width: 100%;
+    }
+    /* Accordion panels */
+    .about-accordion {
+      width: 220px;
+      margin-left: auto;
+      border: 1px solid #d0d8f8;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .about-accordion-toggle {
+      width: 100%;
+      background: var(--color-primary-light, #3a5bd9);
+      color: #fff;
+      border: none;
+      padding: 13px 16px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background .2s;
+      text-align: left;
+    }
+    .about-accordion-toggle:hover { background: var(--color-primary, #1a1a2e); }
+    .toggle-arrow { font-size: 10px; opacity: .8; flex-shrink: 0; margin-left: 8px; }
+    .about-accordion-body {
+      padding: 16px 14px;
+      animation: fadeIn .18s ease;
+    }
+
+    /* Get in Touch rows */
+    .about-contact-rows { display: flex; flex-direction: column; gap: 9px; }
+    .asi-row { display: flex; align-items: center; gap: 9px; font-size: 13px; }
+    .asi-icon { font-size: 15px; }
+    .asi-row a { color: var(--color-primary-light, #3a5bd9); text-decoration: none; word-break: break-all; }
+    .asi-row a:hover { text-decoration: underline; }
+    .asi-row span { color: #555; word-break: break-all; }
+
+    /* Schedule form inside accordion */
+    .about-accordion-body .qsub { font-size: 12px; color: #777; margin-bottom: 12px; }
+    .about-accordion-body form  { display: flex; flex-direction: column; gap: 9px; }
+    .about-accordion-body input,
+    .about-accordion-body textarea {
+      border: 1px solid #dde0ea; border-radius: 6px;
+      padding: 8px 11px; font-size: 13px; font-family: inherit;
+      outline: none; transition: border-color .15s; width: 100%;
+    }
+    .about-accordion-body input:focus,
+    .about-accordion-body textarea:focus { border-color: var(--color-primary-light, #3a5bd9); }
+    .about-accordion-body button[type="submit"] {
+      background: var(--color-accent, #e8524a); color: #fff;
+      border: none; border-radius: 6px; padding: 10px;
+      font-size: 13px; font-weight: 700; cursor: pointer;
+      font-family: inherit; transition: background .2s; width: 100%;
+    }
+    .about-accordion-body button[type="submit"]:hover { background: var(--color-accent-dark, #c8352d); }
+    .about-accordion-body .qnote { font-size: 11px; color: #aaa; margin-top: 8px; }
+
+    /* ============================================================
+       LOGO STRIP (Customers page)
+    ============================================================ */
+    .logo-strip-wrap {
+      width: 100%; overflow: hidden;
+      background: #f7f8fc; border: 1px solid #e8eaf0;
+      border-radius: 10px; padding: 28px 0; margin: 16px 0 8px;
+    }
+    .logo-strip {
+      display: flex; align-items: center; gap: 28px;
+      width: max-content;
+      animation: logo-scroll 28s linear infinite;
+    }
+    .logo-strip:hover { animation-play-state: paused; }
+    @keyframes logo-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .logo-chip {
+      flex-shrink: 0; background: #fff;
+      border: 1px solid #e4e8f4; border-radius: 8px;
+      padding: 14px 24px; height: 90px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-chip img {
+      max-height: 56px; max-width: 140px;
+      width: auto; object-fit: contain;
+      filter: grayscale(30%); transition: filter .2s;
+    }
+    .logo-chip:hover img { filter: grayscale(0%); }
+
+    /* ============================================================
+       BACK TO TOP BUTTON
+    ============================================================ */
+    .back-to-top {
+      position: fixed; bottom: 100px; left: 28px; z-index: 9998;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--color-primary, #1a1a2e);
+      color: #fff; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,.25);
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s, transform .25s;
+      transform: translateY(8px);
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .back-to-top:hover { background: var(--color-primary-light, #3a5bd9); }
+
+    /* ============================================================
+       SERVICES PAGE — sub-item text layout (no bullets/numbers)
+    ============================================================ */
+    .svc-sub-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .svc-sub-item {
+      background: #f7f8fc;
+      border: 1px solid #e4e8f4;
+      border-left: 3px solid var(--color-primary-light, #3a5bd9);
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+    .svc-sub-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-primary, #1a1a2e);
+      margin-bottom: 6px;
+    }
+    .svc-sub-desc {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.65;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
-
 <!--
   ╔══════════════════════════════════════════════════════════════╗
-  ║  DATA FILES — only these need editing                       ║
+  ║  FILE STRUCTURE                                              ║
   ╠══════════════════════════════════════════════════════════════╣
-  ║  data/services.js  — service bar, form dropdown, footer     ║
-  ║  data/content.js   — all page text, contact details         ║
-  ║  data/chatbot.js   — all FAQ responses, flows, lead capture ║
+  ║  data/services.js         — service bar, form, footer        ║
+  ║  data/content.js          — all page text & contact details  ║
+  ║  data/chatbot.js          — FAQ responses, lead capture      ║
+  ║                                                              ║
+  ║  pages/about.js           — About Us page                    ║
+  ║  pages/customers.js       — Customers page                   ║
+  ║  pages/how-we-work.js     — How We Work page                 ║
+  ║  pages/management.js      — Management Team page             ║
+  ║  pages/success-stories.js — Success Stories page             ║
+  ║  pages/testimonials.js    — Testimonials page                ║
+  ║  pages/contact.js         — Contact page                     ║
+  ║  pages/app.js             — Router, TabNav, Footer, Chat     ║
   ╚══════════════════════════════════════════════════════════════╝
 -->
 <script src="data/services.js"></script>
 <script src="data/content.js"></script>
 <script src="data/chatbot.js"></script>
 
-<!-- Header -->
 <header class="top-header">
   <div class="top-header-inner">
     <div class="logo-wrap" id="logo-root"></div>
@@ -236,7 +361,10 @@
 </header>
 
 <div id="service-bar-root"></div>
+
+<!-- Tab nav + all pages render inside app-root -->
 <div id="app-root"></div>
+
 <div id="footer-root"></div>
 <div id="chat-root"></div>
 
@@ -245,622 +373,17 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-<script type="text/babel">
-const { useState, useEffect, useRef } = React;
+<!-- ── Page components — one file per page ── -->
+<script type="text/babel" src="pages/about.js"></script>
+<script type="text/babel" src="pages/customers.js"></script>
+<script type="text/babel" src="pages/how-we-work.js"></script>
+<script type="text/babel" src="pages/management.js"></script>
+<script type="text/babel" src="pages/success-stories.js"></script>
+<script type="text/babel" src="pages/testimonials.js"></script>
+<script type="text/babel" src="pages/contact.js"></script>
 
-/* ══════════════════════════════════════════════════════════════
-   EMAILJS CONFIG  ← replace these with your own values
-   https://www.emailjs.com  (free, 200 emails/month)
-══════════════════════════════════════════════════════════════ */
-const EMAILJS_SERVICE_ID  = "service_mdwcfg7";
-const EMAILJS_TEMPLATE_ID = "template_tpsbrfb";
-const EMAILJS_PUBLIC_KEY  = "21WwJA7ArdS1VEsTs";
-
-const SERVICES = window.SERVICES_DATA;
-const CONTENT  = window.CONTENT_DATA;
-const BOT      = window.CHATBOT_DATA;
-
-let _setPageGlobal = null;
-
-/* ══════════════════════════════════════════════════════════════
-   FAQ MATCHING ENGINE
-   Scores each FAQ entry by counting how many of its keywords
-   appear in the visitor's message, then returns the best match.
-══════════════════════════════════════════════════════════════ */
-function findBestFaq(text) {
-  const lower = text.toLowerCase();
-  let best = null, bestScore = 0;
-
-  for (const faq of BOT.faqs) {
-    let score = 0;
-    for (const kw of faq.keywords) {
-      if (lower.includes(kw.toLowerCase())) score++;
-    }
-    if (score > bestScore) { bestScore = score; best = faq; }
-  }
-  return bestScore > 0 ? best : null;
-}
-
-/* ══════════════════════════════════════════════════════════════
-   CHAT WIDGET
-══════════════════════════════════════════════════════════════ */
-function ChatWidget({ onOpenContact }) {
-  const [open, setOpen]         = useState(false);
-  const [msgs, setMsgs]         = useState([]);
-  const [input, setInput]       = useState("");
-  const [typing, setTyping]     = useState(false);
-  // Lead capture state
-  const [leadMode, setLeadMode] = useState(false);
-  const [leadStep, setLeadStep] = useState(0);
-  const [leadData, setLeadData] = useState({name:"", email:"", service:"", message:""});
-  const bottomRef               = useRef(null);
-
-  // Send greeting on first open
-  useEffect(() => {
-    if (open && msgs.length === 0) {
-      addBotMsg(BOT.greeting, BOT.openingReplies);
-    }
-  }, [open]);
-
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior:"smooth" });
-  }, [msgs, typing]);
-
-  function addBotMsg(text, chips=[], extra=null) {
-    setMsgs(prev => [...prev, { role:"bot", text, chips, extra }]);
-  }
-
-  function addUserMsg(text) {
-    setMsgs(prev => [...prev, { role:"user", text }]);
-  }
-
-  /* Simulate a short typing delay so it feels natural */
-  function botReply(text, chips=[], extra=null, delay=600) {
-    setTyping(true);
-    setTimeout(() => {
-      setTyping(false);
-      addBotMsg(text, chips, extra);
-    }, delay);
-  }
-
-  /* Handle a chip click or typed message */
-  function handleUserInput(text) {
-    const trimmed = text.trim();
-    if (!trimmed) return;
-    addUserMsg(trimmed);
-    setInput("");
-
-    // ── Lead capture flow ──
-    if (leadMode) {
-      handleLeadStep(trimmed);
-      return;
-    }
-
-    // ── Check if triggering lead capture ──
-    const lower = trimmed.toLowerCase();
-    const isLeadTrigger = BOT.leadCapture.triggerPhrases.some(p => lower.includes(p.toLowerCase()));
-    if (isLeadTrigger) {
-      setLeadMode(true);
-      setLeadStep(0);
-      botReply(BOT.leadCapture.steps[0].prompt);
-      return;
-    }
-
-    // ── Open contact form shortcuts ──
-    if (lower.includes("open contact form") || lower.includes("contact form") || lower.includes("get a free quote") || lower.includes("get a quote")) {
-      botReply("Opening the contact form for you! 👇", [], { type:"open_contact" });
-      return;
-    }
-
-    // ── FAQ matching ──
-    const faq = findBestFaq(trimmed);
-    if (faq) {
-      if (faq.action === "open_contact") {
-        botReply(faq.response, faq.quickReplies || [], { type:"open_contact" });
-      } else if (faq.action === "show_contact_cta") {
-        botReply(faq.response, faq.quickReplies || [], { type:"contact_cta" });
-      } else {
-        botReply(faq.response, faq.quickReplies || []);
-      }
-    } else {
-      botReply(BOT.fallback, BOT.openingReplies);
-    }
-  }
-
-  /* Lead capture step handler */
-  async function handleLeadStep(value) {
-    const steps    = BOT.leadCapture.steps;
-    const field    = steps[leadStep].field;
-    const newData  = { ...leadData, [field]: value };
-    setLeadData(newData);
-
-    if (leadStep < steps.length - 1) {
-      // Next step — personalise prompt with collected name
-      const next = steps[leadStep + 1].prompt.replace("{name}", newData.name || "");
-      setLeadStep(leadStep + 1);
-      botReply(next);
-    } else {
-      // All steps complete — send email
-      setLeadMode(false);
-      setLeadStep(0);
-      const confirmation = BOT.leadCapture.confirmationMessage
-        .replace("{name}", newData.name)
-        .replace("{email}", newData.email);
-      botReply(confirmation, ["What services do you offer?", "How does it work?"]);
-
-      // Send via EmailJS
-      try {
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email:   newData.email,
-          from_name:  newData.from_name || newData.name,
-          name:       newData.from_name || newData.name,
-          service:    newData.service || "Not specified",
-          message:    newData.message || "Chat lead — no message",
-          subject:    BOT.leadCapture.emailSubject.replace("{name}", newData.name),
-          phone:      "Via chat",
-          company:    "Via chat",
-          country:    "Unknown",
-          howheard:   "Chatbot"
-        }, EMAILJS_PUBLIC_KEY);
-      } catch(e) {
-        console.warn("EmailJS failed:", e);
-      }
-      setLeadData({name:"", email:"", service:"", message:""});
-    }
-  }
-
-  const handleKey = e => {
-    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleUserInput(input); }
-  };
-
-  /* Render a single message bubble */
-  function Message({ msg }) {
-    if (msg.role === "user") {
-      return (
-        <div className="cw-msg user">
-          <div className="cw-bubble">{msg.text}</div>
-        </div>
-      );
-    }
-    return (
-      <div className="cw-msg bot">
-        <div className="cw-bubble" dangerouslySetInnerHTML={{ __html: msg.text }} />
-
-        {/* Action extras */}
-        {msg.extra?.type === "open_contact" && (
-          <button className="cw-contact-cta-btn" style={{marginTop:8,borderRadius:10,padding:"9px 14px"}}
-            onClick={() => { onOpenContact(); setOpen(false); }}>
-            ✉ Open Contact Form →
-          </button>
-        )}
-        {msg.extra?.type === "contact_cta" && (
-          <div className="cw-contact-cta">
-            <div>📧 contact@help-nexus.com</div>
-            <div>📞 0000000000</div>
-            <button className="cw-contact-cta-btn" onClick={() => { onOpenContact(); setOpen(false); }}>
-              ✉ Open Contact Form →
-            </button>
-          </div>
-        )}
-
-        {/* Quick reply chips */}
-        {msg.chips?.length > 0 && (
-          <div className="cw-chips">
-            {msg.chips.map((chip, i) => (
-              <button key={i} className="cw-chip" onClick={() => handleUserInput(chip)}>
-                {chip}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div className="cw-root">
-      {open && (
-        <div className="cw-window">
-
-          {/* Header */}
-          <div className="cw-header">
-            <div className="cw-header-top">
-              <div>
-                <div className="cw-title">{BOT.botName}</div>
-              </div>
-              <div style={{display:"flex",alignItems:"center",gap:6}}>
-                <div className="cw-status">
-                  <div className="cw-status-dot" />
-                  Online
-                </div>
-                <button className="cw-close" onClick={() => setOpen(false)}>
-                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                    <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div className="cw-accent-bar" />
-          </div>
-
-          {/* Messages */}
-          <div className="cw-messages">
-            {msgs.map((m, i) => <Message key={i} msg={m} />)}
-            {typing && (
-              <div className="cw-msg bot">
-                <div className="cw-typing"><span/><span/><span/></div>
-              </div>
-            )}
-            <div ref={bottomRef} />
-          </div>
-
-          {/* Input */}
-          <div className="cw-input-area">
-            <textarea className="cw-input" rows={1}
-              placeholder={leadMode ? "Type your answer…" : "Ask me anything…"}
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={handleKey}
-            />
-            <button className="cw-send" onClick={() => handleUserInput(input)} disabled={!input.trim()}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-                <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="#0a0a0a" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-          </div>
-
-        </div>
-      )}
-
-      {/* FAB */}
-      <button className="cw-fab" onClick={() => setOpen(o => !o)}>
-        {!open && <div className="cw-dot" />}
-        {open ? (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" color="white">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
-          </svg>
-        ) : (
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" color="white">
-            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        )}
-      </button>
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════
-   ARTICLE SECTIONS RENDERER
-══════════════════════════════════════════════════════════════ */
-function ArticleSections({ sections }) {
-  return (
-    <>
-      {sections.map((s, i) => {
-        switch(s.type) {
-          case "heading1":   return <h1 key={i} id={s.id||undefined}>{s.text}</h1>;
-          case "heading2":   return <h2 key={i} id={s.id||undefined}>{s.text}</h2>;
-          case "paragraph":  return <p  key={i} id={s.id||undefined} dangerouslySetInnerHTML={{__html:s.text}} />;
-          case "bulletList": return <ul key={i} className="blist">{s.items.map((it,j)=><li key={j} dangerouslySetInnerHTML={{__html:it}} />)}</ul>;
-          default: return null;
-        }
-      })}
-    </>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════
-   SERVICE BAR
-══════════════════════════════════════════════════════════════ */
-function ServiceBar() {
-  return (
-    <nav className="service-bar">
-      <div className="service-bar-inner">
-        {SERVICES.map(svc => {
-          const [l1,l2] = svc.label.split("\n");
-          return (
-            <div className="svc-item" key={svc.id}>
-              <a href="#">{l1}<br/>{l2} ▾</a>
-              {svc.subServices?.length > 0 && (
-                <div className="svc-dropdown">
-                  {svc.subServices.map((s,i)=><a href="#" key={i}>{s}</a>)}
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </nav>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════
-   ABOUT PAGE
-══════════════════════════════════════════════════════════════ */
-function AboutPage({ onGoContact }) {
-  const { aboutPage, quoteBox } = CONTENT;
-  return (
-    <div className="page-enter">
-      <nav className="tab-nav">
-        <div className="tab-nav-inner">
-          {aboutPage.tabNav.map((tab,i)=>(
-            <a key={i} href={"#"+tab.anchor} className={i===0?"active":""}>{tab.label}</a>
-          ))}
-        </div>
-      </nav>
-      <div className="main-wrap">
-        <div className="main-inner">
-
-          <article className="article">
-            <ArticleSections sections={aboutPage.sections} />
-            <div className="cta-wrap">
-              <button className="contact-btn-react" onClick={onGoContact}>✉ Contact Us</button>
-            </div>
-          </article>
-
-          <aside className="toc-box">
-            <h3>Page Content</h3>
-            <ul>{aboutPage.tocLinks.map((l,i)=><li key={i}><a href={"#"+l.anchor}>{l.label}</a></li>)}</ul>
-          </aside>
-
-          <aside className="quote-box">
-            <h3>{quoteBox.heading}</h3>
-            <p className="qsub">{quoteBox.subtext}</p>
-            <form onSubmit={e=>{e.preventDefault();onGoContact();}}>
-              <input type="text"  placeholder="Name*"  required />
-              <input type="email" placeholder="Email*" required />
-              <input type="tel"   placeholder="Phone*" required />
-              <textarea placeholder="Enter your requirements*" rows="4"></textarea>
-              <button type="submit">Schedule Free Call</button>
-            </form>
-            {quoteBox.noteLines.map((n,i)=><p key={i} className="qnote">{n}</p>)}
-            <div className="qcontact">
-              {quoteBox.contactRows.map((row,i)=>(
-                <div className="qc-row" key={i}>
-                  <span className="ico">{row.icon}</span>
-                  {row.href ? <a href={row.href}>{row.text}</a> : <span>{row.text}</span>}
-                </div>
-              ))}
-            </div>
-          </aside>
-
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════
-   CONTACT PAGE
-══════════════════════════════════════════════════════════════ */
-const BLANK = {fname:"",lname:"",email:"",phone:"",company:"",country:"",service:"",subject:"",message:"",howheard:""};
-
-function ContactPage({ onGoBack }) {
-  const { contactPage, aboutPage } = CONTENT;
-  const { contactInfo, offices }   = contactPage.sidebar;
-  const [form, setForm]     = useState(BLANK);
-  const [status, setStatus] = useState("idle");
-  const [errMsg, setErrMsg] = useState("");
-
-  const handle = e => setForm({...form,[e.target.name]:e.target.value});
-  const reset  = () => { setForm(BLANK); setStatus("idle"); setErrMsg(""); };
-
-  const submit = async e => {
-    e.preventDefault(); setStatus("sending"); setErrMsg("");
-    try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        name:`${form.fname} ${form.lname}`, to_email:form.email,
-        phone:form.phone, company:form.company||"N/A", country:form.country,
-        service:form.service||"N/A", subject:form.subject,
-        message:form.message, howheard:form.howheard||"N/A"
-      }, EMAILJS_PUBLIC_KEY);
-      setStatus("success"); setForm(BLANK);
-    } catch(err) {
-      console.error(err); setErrMsg(contactPage.errorMessage); setStatus("error");
-    }
-  };
-
-  return (
-    <div className="page-enter">
-      <nav className="tab-nav">
-        <div className="tab-nav-inner">
-          {aboutPage.tabNav.map((tab,i)=>(
-            <a key={i} href="#" onClick={e=>{e.preventDefault();onGoBack();}}>{tab.label}</a>
-          ))}
-          <a href="#" className="active">Contact Us</a>
-        </div>
-      </nav>
-
-      <div className="section-heading-row"><h2>CONTACT US</h2></div>
-      <div className="breadcrumb">
-        <div className="breadcrumb-inner">
-          <a href="#" onClick={e=>{e.preventDefault();onGoBack();}}>Home</a>{" › "}
-          <a href="#" className="bc-link">Contact Us</a>
-        </div>
-      </div>
-
-      <div className="contact-page-wrap">
-        <div className="contact-page-inner">
-          <section className="contact-form-section">
-            <button className="back-btn" onClick={onGoBack}>← Back</button>
-            <h1>{contactPage.heading}</h1>
-            <p className="intro">{contactPage.intro}</p>
-
-            {status==="success" ? (
-              <div>
-                <div className="success-msg">{contactPage.successMessage}</div>
-                <br/>
-                <button className="back-btn" onClick={reset}>✉ Send Another Message</button>
-              </div>
-            ) : (
-              <form className="contact-form" onSubmit={submit} noValidate>
-                {status==="error" && <div className="form-error-banner">⚠ {errMsg}</div>}
-                <div className="form-row">
-                  <div><label>First Name <span className="required">*</span></label>
-                    <input type="text" name="fname" value={form.fname} onChange={handle} placeholder="Your first name" required /></div>
-                  <div><label>Last Name <span className="required">*</span></label>
-                    <input type="text" name="lname" value={form.lname} onChange={handle} placeholder="Your last name" required /></div>
-                </div>
-                <div className="form-row">
-                  <div><label>Email <span className="required">*</span></label>
-                    <input type="email" name="email" value={form.email} onChange={handle} placeholder="your@company.com" required /></div>
-                  <div><label>Phone Number <span className="required">*</span></label>
-                    <input type="tel" name="phone" value={form.phone} onChange={handle} placeholder="+91 00000 00000" required /></div>
-                </div>
-                <div className="form-row">
-                  <div><label>Company Name</label>
-                    <input type="text" name="company" value={form.company} onChange={handle} placeholder="Your company name" /></div>
-                  <div><label>Country <span className="required">*</span></label>
-                    <select name="country" value={form.country} onChange={handle} required>
-                      <option value="">— Select Country —</option>
-                      <option>India</option><option>United States</option>
-                      <option>United Kingdom</option><option>Canada</option>
-                      <option>Australia</option><option>Germany</option>
-                      <option>France</option><option>Other</option>
-                    </select></div>
-                </div>
-                <div className="form-row full"><div>
-                  <label>Service You're Interested In</label>
-                  <select name="service" value={form.service} onChange={handle}>
-                    <option value="">— Select a Service —</option>
-                    {SERVICES.map(svc=>(
-                      <option key={svc.id} value={svc.label.replace("\n"," ")}>{svc.label.replace("\n"," ")}</option>
-                    ))}
-                  </select>
-                </div></div>
-                <div className="form-row full"><div>
-                  <label>Subject <span className="required">*</span></label>
-                  <input type="text" name="subject" value={form.subject} onChange={handle} placeholder="Brief subject of your inquiry" required />
-                </div></div>
-                <div className="form-row full"><div>
-                  <label>Your Message <span className="required">*</span></label>
-                  <textarea name="message" value={form.message} onChange={handle} placeholder="Please describe your requirements in detail..." required rows="6" />
-                </div></div>
-                <div className="form-row full"><div>
-                  <label>How Did You Hear About Us?</label>
-                  <select name="howheard" value={form.howheard} onChange={handle}>
-                    <option value="">— Select —</option>
-                    <option>Google / Search Engine</option><option>LinkedIn</option>
-                    <option>Referral from a colleague</option><option>Social Media</option>
-                    <option>Advertisement</option><option>Other</option>
-                  </select>
-                </div></div>
-                <div className="submit-row">
-                  <button type="submit" className="submit-btn" disabled={status==="sending"}>
-                    {status==="sending" ? "⏳ Sending…" : "✉ SEND MESSAGE"}
-                  </button>
-                  <button type="button" className="reset-btn" onClick={reset}>Clear Form</button>
-                </div>
-                <p className="form-note-bottom">
-                  By submitting this form, you agree to our <a href="#">Privacy Policy</a> and <a href="#">Terms of Use</a>.<br/>
-                  We respect your privacy and will never share your information with third parties.
-                </p>
-              </form>
-            )}
-          </section>
-
-          <aside className="contact-sidebar">
-            <div className="contact-info-box">
-              <div className="box-title">{contactInfo.title}</div>
-              <div className="box-body">
-                {contactInfo.rows.map((row,i)=>(
-                  <div className="ci-row" key={i}>
-                    <span className="ci-icon">{row.icon}</span>
-                    <div>
-                      <span className="ci-label">{row.label}</span>
-                      {row.href ? <a href={row.href}>{row.text}</a> : <span>{row.text}</span>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="office-box">
-              <div className="box-title">{offices.title}</div>
-              {offices.cards.map((card,i)=>(
-                <div className="office-card" key={i}>
-                  <strong>{card.flag} {card.name}</strong>
-                  {card.lines.map((line,j)=><span key={j}>{line}<br/></span>)}
-                  {card.email && <a href={"mailto:"+card.email}>{card.email}</a>}
-                </div>
-              ))}
-            </div>
-          </aside>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════
-   FOOTER
-══════════════════════════════════════════════════════════════ */
-function Footer() {
-  const { site, footer } = CONTENT;
-  return (
-    <footer className="footer">
-      <div className="footer-cols">
-        <div>
-          <span className="footer-brand-name">{site.name}</span>
-          <p>{footer.tagline}</p>
-          <p><a href={"mailto:"+site.email}>{site.email}</a></p>
-        </div>
-        <div>
-          <h4>Services</h4>
-          <ul>{SERVICES.map(svc=><li key={svc.id}><a href="#">{svc.label.replace("\n"," ")}</a></li>)}</ul>
-        </div>
-        <div>
-          <h4>Quick Links</h4>
-          <ul>{footer.quickLinks.map((l,i)=><li key={i}><a href={l.href}>{l.label}</a></li>)}</ul>
-        </div>
-      </div>
-      <div className="footer-bottom">
-        <div className="footer-bottom-inner"><p>{footer.bottomText}</p></div>
-      </div>
-    </footer>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════
-   ROOTS
-══════════════════════════════════════════════════════════════ */
-function LogoRoot() {
-  const { site } = CONTENT;
-  return <><span className="logo-name">{site.name}</span><span className="logo-slogan">{site.slogan}</span></>;
-}
-function HeaderNavRoot() {
-  return CONTENT.header.navLinks.map((l,i)=><a key={i} href={l.href}>{l.label}</a>);
-}
-function ContactBtnRoot() {
-  const go = () => { if (_setPageGlobal) { _setPageGlobal("contact"); window.scrollTo({top:0,behavior:"smooth"}); } };
-  return <button className="contact-btn-react" onClick={go}>✉ CONTACT US</button>;
-}
-
-function AppRoot() {
-  const [page, setPage] = useState("about");
-  useEffect(() => { _setPageGlobal = setPage; }, []);
-  const goContact = () => { setPage("contact"); window.scrollTo({top:0,behavior:"smooth"}); };
-  const goBack    = () => { setPage("about");   window.scrollTo({top:0,behavior:"smooth"}); };
-  return page === "about"
-    ? <AboutPage   onGoContact={goContact} />
-    : <ContactPage onGoBack={goBack} />;
-}
-
-function ChatRoot() {
-  const openContact = () => {
-    if (_setPageGlobal) { _setPageGlobal("contact"); window.scrollTo({top:0,behavior:"smooth"}); }
-  };
-  return <ChatWidget onOpenContact={openContact} />;
-}
-
-/* ══════════════════════════════════════════════════════════════
-   MOUNT
-══════════════════════════════════════════════════════════════ */
-ReactDOM.createRoot(document.getElementById("logo-root")).render(<LogoRoot />);
-ReactDOM.createRoot(document.getElementById("header-nav-root")).render(<HeaderNavRoot />);
-ReactDOM.createRoot(document.getElementById("contact-btn-root")).render(<ContactBtnRoot />);
-ReactDOM.createRoot(document.getElementById("service-bar-root")).render(<ServiceBar />);
-ReactDOM.createRoot(document.getElementById("app-root")).render(<AppRoot />);
-ReactDOM.createRoot(document.getElementById("footer-root")).render(<Footer />);
-ReactDOM.createRoot(document.getElementById("chat-root")).render(<ChatRoot />);
-</script>
+<!-- ── App shell: router, tab-nav, header, footer, chat ── -->
+<script type="text/babel" src="pages/services.js"></script>
+<script type="text/babel" src="pages/app.js"></script>
 </body>
 </html>
