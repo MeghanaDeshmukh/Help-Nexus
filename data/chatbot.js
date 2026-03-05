@@ -140,7 +140,7 @@ window.CHATBOT_DATA = {
     {
       "id": "contact",
       "keywords": ["contact", "talk", "speak", "reach", "email", "call", "phone", "get in touch", "connect", "team", "sales", "human", "person", "representative"],
-      "response": "I'd love to connect you with our team! You can reach us via:<br/><br/>📧 <strong>Email:</strong> contact@help-nexus.com<br/>📞 <strong>Phone:</strong> 0000000000<br/>⏰ <strong>Hours:</strong> Mon–Fri, 9am–6pm IST<br/><br/>Or fill out our contact form and we'll get back to you within 24 hours:",
+      "response": "I'd love to connect you with our team! You can reach us via:<br/><br/>📧 <strong>Email:</strong> contact@help-nexus.com<br/>📞 <strong>Phone:</strong> +91 7676547429<br/>⏰ <strong>Hours:</strong> Mon–Fri, 9am–6pm IST<br/><br/>Or fill out our contact form and we'll get back to you within 24 hours:",
       "quickReplies": ["Open contact form"],
       "action": "show_contact_cta"
     },
