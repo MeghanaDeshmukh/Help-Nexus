@@ -764,6 +764,23 @@ ul {
   color: var(--color-primary);
 }
 
+/* =============================================================================
+    SERVICES PAGE
+   ============================================================================= */
+
+.svc-sub-list--pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.svc-sub-list--cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
 
 /* =============================================================================
    10. CONTACT PAGE
