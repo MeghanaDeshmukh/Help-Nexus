@@ -72,8 +72,8 @@ function validateContactFields(form) {
   if (!form.country)
     errs.country = "Please select your country.";
 
-  if (!form.subject.trim())
-    errs.subject = "Subject is required.";
+  if (!form.service)                                          
+    errs.service = "Please select a service."
 
   if (!form.message.trim()) {
     errs.message = "Please enter your message.";
@@ -247,8 +247,9 @@ function ContactPage() {
 
                 <div className="form-row full">
                   <div>
-                    <label>Service Interested In</label>
-                    <select name="service" value={form.service} onChange={handle}>
+                    <label>Service Interested In <span className="required">*</span></label>
+                    <select name="service" value={form.service} onChange={handle} 
+                      style={inputStyle("service")}>
                       <option value="">Select a Service</option>
                       {SERVICES.map(svc => (
                         <option key={svc.id} value={svc.label.replace("\n", " ")}>
@@ -256,6 +257,7 @@ function ContactPage() {
                         </option>
                       ))}
                     </select>
+                    <ErrMsg name="service" />
                   </div>
                 </div>
 
@@ -270,11 +272,10 @@ function ContactPage() {
 
                 <div className="form-row full">
                   <div>
-                    <label>Your Message <span className="required">*</span></label>
+                    <label>Your Message</label>                             
                     <textarea name="message" value={form.message} onChange={handle}
                       placeholder="Please describe your requirements in detail..."
-                      rows="6" style={inputStyle("message")} />
-                    <ErrMsg name="message" />
+                      rows="6" />                                           
                   </div>
                 </div>
 

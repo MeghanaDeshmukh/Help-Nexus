@@ -51,10 +51,10 @@ function LogoStrip() {
 
 function CustomersPage() {
   const industries = [
-    { icon: "\u{1F3E5}", name: "Healthcare",       desc: "Clinics, hospitals and billing companies across the US, UK and India." },
-    { icon: "\u{1F3D7}", name: "Engineering",       desc: "Architecture and infrastructure firms needing CAD and BIM support." },
-    { icon: "\u{1F6D2}", name: "Ecommerce",         desc: "Online retailers requiring bulk photo editing and catalog management." },
-    { icon: "\u{1F4CA}", name: "Finance",            desc: "Investment firms and fintech companies needing research and analysis." },
+    { icon: "\u{1F3E5}", name: "Healthcare",        desc: "Clinics, hospitals and billing companies across the globe." },
+    { icon: "\u{1F3D7}", name: "Engineering",       desc: "Businesses in need of data pre-processing, visualization and analysis." },
+    { icon: "\u{1F6D2}", name: "Ecommerce",         desc: "Online retailers requiring bulk photo editing, catalog and fright management." },
+    { icon: "\u{1F4CA}", name: "Research",          desc: "Business, firms and fintech companies needing research and analysis." },
     { icon: "\u{1F4DE}", name: "Telecoms and SaaS", desc: "Companies outsourcing customer support and virtual assistant services." },
     { icon: "\u{1F3A8}", name: "Creative Agencies", desc: "Design studios and marketing agencies handling overflow work." },
   ];
@@ -79,7 +79,7 @@ function CustomersPage() {
         </div>
 
         <h2>Where Our Clients Are Based</h2>
-        <p>We serve clients across <strong>North America, Europe, Australia, and Asia</strong>. Our Bengaluru operations allow competitive pricing with round-the-clock support across multiple time zones.</p>
+        <p>We serve clients across <strong>the globe</strong>. Our Bengaluru operations allow competitive pricing with round-the-clock support across multiple time zones.</p>
 
         <h2>Our Clients</h2>
         <LogoStrip />

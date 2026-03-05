@@ -21,7 +21,7 @@ const TAB_DEFS = [
   { id: "about",         label: "About Us"         },
   { id: "customers",     label: "Customers"        },
   { id: "howwework",     label: "How We Work"      },
-  { id: "management",    label: "Management Team"  },
+  { id: "management",    label: "Team"  },
   { id: "stories",       label: "Success Stories"  },
   { id: "testimonials",  label: "Testimonials"     },
   { id: "services",      label: "Services"         },

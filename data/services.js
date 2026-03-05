@@ -12,85 +12,82 @@
 ============================================================= */
 
 window.SERVICES_DATA = [
+  
   {
-    "id": "call-center",
-    "label": "CALL CENTER\nSERVICES",
+    "id": "data",
+    "label": "DATA\nSERVICES",
     "subServices": [
-      { "name": "Customer Support", "description": "Your text here..." },
-      { "name": "Virtual Assistant", "description": "Your text here..." },
-      { "name": "Answering Services", "description": "Your text here..." },
-    ]
-  },
-  {
-    "id": "datapreprocessing",
-    "label": "DATA PREPROCESSING\nSERVICES",
-    "subServices": [
-      "Data Entry Services",
-      "Data Cleaning Services",
-      "Data Digitalization",
-      "Data Pipeline Creation",
-      "Data Unification"
+      { "name": "Data Entry Services", "description": "Get your data entered accurately and efficiently" },
+      { "name": "Data Cleaning Services", "description": "Only clean data can provide useful insights" },
+      { "name": "Data Digitalization", "description": "Make your data work for you. It is no good sitting outside of your computer" },
+      { "name": "Data Pipeline Creation", "description": "This helps your data to be automated and analysed" },
+      { "name": "Data Unification", "description": "Combine data from multiple sources for a unified analysis" },
+      { "name": "Data Annotation", "description": "Add labels and metadata to your data for better organization" },
+      { "name": "Data Enrichment", "description": "Enhance your data with additional information and context" },
+      { "name": "Data Validation", "description": "Ensure the accuracy and consistency of your data" },
+      { "name": "Data Conversion Services", "description": "Convert your data into different formats as needed" },
+      { "name": "Online Catalog Management", "description": "Manage your product catalogs efficiently" },
+      { "name": "OCR Services", "description": "Convert scanned documents into editable text" },
+      { "name": "Data pre-processing", "description": "Prepare your data for analysis and modeling" },
     ]
   },
   {
     "id": "healthcare",
     "label": "HEALTHCARE\nBPO",
     "subServices": [
-      { "name": "Medical Billing", "description": "Your text here..." },
-      { "name": "Medical Coding", "description": "Your text here..." },
-      { "name": "Medical Transcription", "description": "Your text here..." },
-      { "name": "Medical Data Entry", "description": "Your text here..." },
-      { "name": "Medical Call Center", "description": "Your text here..." },
+      { "name": "Medical Billing", "description": "" },
+      { "name": "Medical Coding", "description": "" },
+      { "name": "Medical Transcription", "description": "" },
+      { "name": "Medical Data Entry", "description": "" },
+      { "name": "Medical Call Center", "description": "" },
     ]
   },
   {
     "id": "creative",
     "label": "CREATIVE\nSERVICES",
     "subServices": [
-      "Graphic Design",
-      "Storyboard Services",
-      "Prepress Services",
-      "Audio Editing",
-      "Writing Services"
-    ]
-  },
-  {
-    "id": "data",
-    "label": "DATA\nSERVICES",
-    "subServices": [
-      "Data Entry Services",
-      "Data Conversion",
-      "eBook Conversion",
-      "Data Processing",
-      "OCR Services",
-      "Online Catalog Management"
-    ]
-  },
-  {
-    "id": "photo",
-    "label": "PHOTO\nEDITING",
-    "subServices": [
-      "Photo Retouching",
-      "Clipping Path Services",
-      "Real Estate Photo Editing",
-      "Wedding Photo Editing",
-      "Ecommerce Photo Editing",
-      "Portrait Retouching",
-      "Photoshop Services"
+      { "name": "Graphic Design", "description": "Create visually appealing designs for your brand" },
+      { "name": "Storyboard Services", "description": "Visualize your story before production" },
+      { "name": "Prepress Services", "description": "Prepare your designs for high-quality printing" },
+      { "name": "Audio Editing", "description": "Enhance and refine your audio content" },
+      { "name": "Writing Services", "description": "Craft compelling narratives for your audience" },
+      { "name": "eBook Conversion", "description": "Transform your content into interactive eBook formats" },
     ]
   },
   {
     "id": "research",
     "label": "RESEARCH &\nANALYSIS",
     "subServices": [
-      "Financial Research",
-      "Investment Research",
-      "Market Research",
-      "Business Research",
-      "Social Media Monitoring",
-      "Pharmaceutical Research",
-      "Scientific Research",
-      "Benchmarking Services"
+      { "name": "Financial Research", "description": "" },
+      { "name": "Investment Research", "description": "" },
+      { "name": "Market Research", "description": "" },
+      { "name": "Business Research", "description": "" },
+      { "name": "Social Media Monitoring", "description": "" },
+      { "name": "Pharmaceutical Research", "description": "" },
+      { "name": "Scientific Research", "description": "" },
+      { "name": "Benchmarking Services", "description": "" }
+    ]
+  },
+  {
+    "id": "call-center",
+    "label": "CALL CENTER\nSERVICES",
+    "subServices": [
+      { "name": "Customer Support", "description": "" },
+      { "name": "Virtual Assistant", "description": "" },
+      { "name": "Answering Services", "description": "" },
+    ]
+  },
+  {
+    "id": "photo",
+    "label": "PHOTO\nEDITING",
+    "subServices": [
+      { "name": "Photo Retouching", "description": "" },
+      { "name": "Clipping Path Services", "description": "" },
+      { "name": "Real Estate Photo Editing", "description": "" },
+      { "name": "Wedding Photo Editing", "description": "" },
+      { "name": "Ecommerce Photo Editing", "description": "" },
+      { "name": "Portrait Retouching", "description": "" },
+      { "name": "Photoshop Services", "description": "" }
     ]
   }
 ];
