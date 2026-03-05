@@ -3,7 +3,7 @@
 // ================================================================
 function TestimonialsPage() {
   const testimonials = [
-    { stars: 5, author: "James R.",  role: "CEO, MedBill Solutions USA",
+    /*{ stars: 5, author: "James R.",  role: "CEO, MedBill Solutions USA",
       quote: "HelpNexus took over our medical billing within days. The accuracy is outstanding and we have cut our overhead significantly." },
     { stars: 5, author: "Claire D.", role: "Project Manager, Becker Engineering UK",
       quote: "The CAD team is excellent. They understood our drawings from the first batch. Turnaround is fast and quality rivals our in-house staff." },
@@ -15,7 +15,7 @@ function TestimonialsPage() {
       quote: "Very responsive team. They flagged a data issue before we even noticed. That kind of ownership is rare in outsourcing." },
     { stars: 5, author: "Meera P.", role: "VP Operations, Globalink Corp",
       quote: "Working with HelpNexus for over a year. Consistent quality, zero surprises, and a team that genuinely cares about your success." },
-  ];
+  */];
   return (
     <div className="page-enter">
       <div className="section-heading-row"><h2>TESTIMONIALS</h2></div>

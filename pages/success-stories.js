@@ -3,7 +3,7 @@
 // ================================================================
 function StoriesPage({ onGoContact }) {
   const stories = [
-    {
+    /*{
       title: "US Healthcare Billing - 40% Cost Reduction",
       body:  "A mid-sized medical billing firm struggling with backlogs handed their coding and eligibility verification to HelpNexus. Within 3 months, error rates dropped and throughput doubled.",
       stat:  "40% cost saving",
@@ -22,7 +22,7 @@ function StoriesPage({ onGoContact }) {
       title: "SaaS Startup - Customer Support Scaled 3x",
       body:  "A fast-growing SaaS company needed to scale support without hiring in-house. Our virtual team handled 3x the ticket volume with a 94% customer satisfaction score.",
       stat:  "94% CSAT score",
-    },
+    },*/
   ];
   return (
     <div className="page-enter">
