@@ -3,8 +3,8 @@
 // ================================================================
 function ManagementPage() {
   const team = [
-    { initials: "MD", name: "Meghana D.",  role: "Director"              },
-    { initials: "PR", name: "PusphaLatha R.", role: "Director"           },
+    //{ initials: "MD", name: "Meghana D.",  role: "Director"              },
+    //{ initials: "PR", name: "PusphaLatha R.", role: "Director"           },
   ];
   return (
     <div className="page-enter">

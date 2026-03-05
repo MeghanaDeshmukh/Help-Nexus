@@ -20,7 +20,7 @@
 const _name    = "HelpNexus";
 const _slogan  = "Striving to enhance your business";
 const _email   = "contact@help-nexus.com";
-const _phone   = "0000000000";
+const _phone   = "+91 7676547429";
 const _address = "Bengaluru, India";
 const _hours   = "Mon – Fri: 9:00 AM – 6:00 PM IST";
 const _copy    = "© 2025 HelpNexus. All rights reserved.";

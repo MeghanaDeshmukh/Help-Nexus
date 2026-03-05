@@ -10,10 +10,6 @@
 // EmailJS config: update the three window._EMAILJS_* variables.
 // ================================================================
 
-window._EMAILJS_SVC = "service_mdwcfg7";
-window._EMAILJS_TPL = "template_tpsbrfb";
-window._EMAILJS_KEY = "21WwJA7ArdS1VEsTs";
-
 const { useState, useEffect, useRef } = React;
 const SERVICES = window.SERVICES_DATA;
 const CONTENT  = window.CONTENT_DATA;
