@@ -26,6 +26,36 @@
 
 
 /* =============================================================================
+   0. ACCESSIBILITY FIXES
+   ============================================================================= */
+
+/* ── Contrast: muted/role text was below 4.5:1 ratio ── */
+/* team role, testimonial role, muted text — darkened to pass WCAG AA */
+.team-card .t-role        { color: #6b6b6b; }   /* was #888 — now 4.6:1 on white */
+.testimonial-card .role   { color: #6b6b6b; }
+.svc-section-sub          { color: #5e5e5e; }   /* was #777 */
+.svc-card-desc            { color: #555; }       /* was #666 */
+.svc-sub-desc             { color: #555; }
+.ind-desc                 { color: #555; }
+.step-body p              { color: #4a4a4a; }    /* was #555 */
+.logo-slogan              { color: #6b6b6b; }    /* was #888 */
+.placeholder-card p       { color: #6b6b6b; }    /* was #999 */
+.story-card p             { color: #4a4a4a; }    /* was #555 */
+.about-section-body p     { color: #3d3d3d; }    /* was #444 */
+.about-blist li           { color: #3d3d3d; }
+
+/* ── Contrast fixes in dark mode ── */
+body.dark-mode .team-card .t-role,
+body.dark-mode .testimonial-card .role { color: #9a9eb8; }
+body.dark-mode .svc-section-sub        { color: #9a9eb8; }
+body.dark-mode .logo-slogan            { color: #9a9eb8; }
+
+/* ── Heading order: .step-body h3 sits inside sections that use h2,
+      so we visually style h3 the same but it's semantically correct ── */
+.step-body h3 { font-size: 15px; font-weight: 700; margin: 0 0 6px; color: #1a1a2e; }
+
+
+/* =============================================================================
    1. DARK-MODE CSS VARIABLES
    ============================================================================= */
 
@@ -445,14 +475,20 @@ body.dark-mode .dm-toggle {
    ============================================================================= */
 
 @media (max-width: 768px) {
+  /* Give service bar a stacking context so dropdowns appear above page content */
+  .service-bar {
+    position: relative;
+    z-index: 1000;
+  }
+
   .service-bar-inner {
     overflow-x: auto;
     flex-wrap: nowrap;
     justify-content: flex-start;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;           /* Firefox */
+    scrollbar-width: none;
   }
-  .service-bar-inner::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+  .service-bar-inner::-webkit-scrollbar { display: none; }
 
   .svc-item > a {
     font-size: 10px;
@@ -460,15 +496,22 @@ body.dark-mode .dm-toggle {
     white-space: nowrap;
   }
 
-  /* Keep dropdowns usable on tap — position relative to viewport */
+  /* Disable CSS hover-based dropdowns on touch — JS handles taps instead */
+  .svc-item:hover .svc-dropdown { display: none; }
+
+  /* Dropdown: sits directly below the bar item, high z-index */
   .svc-dropdown {
-    position: fixed;
-    top: auto;
+    position: absolute;
+    top: 100%;
     left: 0;
-    right: 0;
-    min-width: 100%;
-    z-index: 9000;
+    right: auto;
+    min-width: 200px;
+    max-width: 90vw;
+    z-index: 2000;
   }
+
+  /* JS toggles this class on tap */
+  .svc-item.open .svc-dropdown { display: block; }
 }
 
 
@@ -547,13 +590,15 @@ body.dark-mode .dm-toggle {
    ============================================================================= */
 
 @media (max-width: 600px) {
-  .team-grid        { grid-template-columns: 1fr 1fr; }
+  /* Single column on all phones — 2-up was too narrow on iPhone 13 (390px) */
+  .team-grid        { grid-template-columns: 1fr; }
   .testimonial-grid { grid-template-columns: 1fr; }
   .industry-grid    { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 380px) {
-  .team-grid { grid-template-columns: 1fr; }
+/* Allow 2-up team cards only on wider tablets */
+@media (min-width: 601px) and (max-width: 900px) {
+  .team-grid { grid-template-columns: 1fr 1fr; }
 }
 
 

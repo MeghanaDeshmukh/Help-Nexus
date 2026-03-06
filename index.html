@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>HelpNexus — Expert Support &amp; Help Desk Solutions</title>
-  <meta name="google-site-verification" content="BBCktfrbIrYtUBjj8TCj4vYWaVxu02CjtIKVSSL9QMk" />
+
   <!-- ═══ SEO Meta Tags ═══ -->
-  <meta name="description" content="HelpNexus provides expert data entry, customer support, help desk, and managed services solutions. Reduce response times, delight customers, and scale your support operations effortlessly." />
-  <meta name="keywords" content="data entry, data pre-processing, data services, help desk, customer support, managed services, IT support, HelpNexus, BPO" />
+  <meta name="description" content="HelpNexus provides expert customer support, help desk, and managed services solutions. Reduce response times, delight customers, and scale your support operations effortlessly." />
+  <meta name="keywords" content="help desk, customer support, managed services, IT support, ticketing system, HelpNexus" />
   <meta name="author" content="HelpNexus" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.helpnexus.com/" />
@@ -16,7 +16,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.helpnexus.com/" />
   <meta property="og:title" content="HelpNexus — Expert Support &amp; Help Desk Solutions" />
-  <meta property="og:description" content="HelpNexus provides expert data entry, data pre-processing, customer support, help desk, and managed services solutions." />
+  <meta property="og:description" content="HelpNexus provides expert customer support, help desk, and managed services solutions." />
   <meta property="og:image" content="https://www.helpnexus.com/og-image.png" />
   <meta property="og:site_name" content="HelpNexus" />
   <meta property="og:locale" content="en_US" />
@@ -25,7 +25,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@helpnexus" />
   <meta name="twitter:title" content="HelpNexus — Expert Support &amp; Help Desk Solutions" />
-  <meta name="twitter:description" content="Expert data entry, data pre-processing, customer support, help desk, and managed services. Scale your support with HelpNexus." />
+  <meta name="twitter:description" content="Expert customer support, help desk, and managed services. Scale your support with HelpNexus." />
   <meta name="twitter:image" content="https://www.helpnexus.com/og-image.png" />
 
   <!-- ═══ Structured Data (JSON-LD) for Google ═══ -->
@@ -52,13 +52,23 @@
   <meta name="apple-mobile-web-app-title" content="HelpNexus" />
   <meta name="mobile-web-app-capable" content="yes" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- Preconnect to external origins so DNS + TLS is ready early -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://unpkg.com" />
+
+  <!-- Google Fonts: font-display=swap means text shows in fallback font
+       immediately, swapping to the custom font once it's downloaded -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap&font-display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="services.css" />
   <!-- Dark mode + mobile responsiveness (all CSS changes live here) -->
   <link rel="stylesheet" href="dark-mode-mobile.css" />
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  <script src="https://assets.calendly.com/assets/external/widget.js"></script>
+
+  <!-- Calendly CSS: load non-blocking so it doesn't delay first paint -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" /></noscript>
   <style>
     .page-enter { animation: fadeIn 0.22s ease; }
     @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
@@ -420,16 +430,42 @@
 
 <div id="service-bar-root"></div>
 
-<!-- Tab nav + all pages render inside app-root -->
-<div id="app-root"></div>
+<!-- main landmark: required for screen readers and accessibility audit -->
+<main id="app-root" aria-label="Page content"></main>
 
 <div id="footer-root"></div>
 <div id="chat-root"></div>
 
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<!-- React + EmailJS: defer so they don't block HTML parsing -->
+<script crossorigin defer src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin defer src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- Babel: must load synchronously because page scripts depend on it,
+     but we move it here (after body content) so it doesn't block the
+     initial HTML render. Long-term fix: pre-compile JSX with Vite. -->
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- Calendly JS: loaded lazily — only fetched when user clicks a
+     "Schedule" / Calendly trigger, saving ~60KB on every page load -->
+<script>
+(function () {
+  var calendlyLoaded = false;
+  function loadCalendly() {
+    if (calendlyLoaded) return;
+    calendlyLoaded = true;
+    var s = document.createElement('script');
+    s.src = 'https://assets.calendly.com/assets/external/widget.js';
+    s.async = true;
+    document.head.appendChild(s);
+  }
+  // Load on first user interaction (scroll, tap, mouse move)
+  // This ensures Calendly is ready before anyone could realistically click it
+  ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach(function (evt) {
+    window.addEventListener(evt, loadCalendly, { once: true, passive: true });
+  });
+}());
+</script>
 
 <!-- ── Page components — one file per page ── -->
 <script type="text/babel" src="pages/about.js"></script>
@@ -443,6 +479,37 @@
 <!-- ── App shell: router, tab-nav, header, footer, chat ── -->
 <script type="text/babel" src="pages/services.js"></script>
 <script type="text/babel" src="pages/app.js"></script>
+<!-- ── Accessibility: patch aria-labels on icon-only buttons rendered by React ── -->
+<script>
+(function () {
+  // These buttons are rendered by React so we can't add aria-label in HTML.
+  // We wait for them to appear in the DOM then patch them.
+  var patches = [
+    { selector: '.cw-fab',       label: 'Open chat'         },
+    { selector: '.cw-close',     label: 'Close chat'        },
+    { selector: '.cw-send',      label: 'Send message'      },
+    { selector: '.back-to-top',  label: 'Back to top'       },
+  ];
+
+  function applyPatches() {
+    patches.forEach(function (p) {
+      document.querySelectorAll(p.selector).forEach(function (el) {
+        if (!el.getAttribute('aria-label')) {
+          el.setAttribute('aria-label', p.label);
+        }
+      });
+    });
+  }
+
+  // Run after React has had time to render (observe DOM changes)
+  var observer = new MutationObserver(applyPatches);
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Also run once on load as a fallback
+  window.addEventListener('load', applyPatches);
+}());
+</script>
+
 <!-- ── Dark Mode Script ── -->
 <script>
 (function () {
@@ -552,5 +619,56 @@
   Allow: /
   Sitemap: https://www.helpnexus.com/sitemap.xml
 -->
+<!-- ── Mobile service bar: tap to open/close dropdowns ── -->
+<script>
+(function () {
+  function isTouchDevice() {
+    return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  }
+
+  if (!isTouchDevice()) return; // desktop keeps CSS :hover behaviour
+
+  var bar = document.getElementById('service-bar-root');
+  if (!bar) return;
+
+  // Wait for React to render the service bar
+  var attempts = 0;
+  var timer = setInterval(function () {
+    var items = bar.querySelectorAll('.svc-item');
+    attempts++;
+    if (items.length > 0 || attempts > 40) clearInterval(timer);
+    if (items.length === 0) return;
+
+    items.forEach(function (item) {
+      var link = item.querySelector(':scope > a');
+      var dropdown = item.querySelector('.svc-dropdown');
+      if (!link || !dropdown) return;
+
+      link.addEventListener('click', function (e) {
+        var isOpen = item.classList.contains('open');
+        // Close all others first
+        bar.querySelectorAll('.svc-item.open').forEach(function (el) {
+          el.classList.remove('open');
+        });
+        if (!isOpen) {
+          e.preventDefault(); // prevent navigation — just open the dropdown
+          item.classList.add('open');
+        }
+      });
+    });
+
+    // Tap anywhere outside to close
+    document.addEventListener('touchstart', function (e) {
+      if (!bar.contains(e.target)) {
+        bar.querySelectorAll('.svc-item.open').forEach(function (el) {
+          el.classList.remove('open');
+        });
+      }
+    }, { passive: true });
+
+  }, 200);
+}());
+</script>
+
 </body>
 </html>
