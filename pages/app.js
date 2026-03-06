@@ -110,19 +110,17 @@ function ChatWidget({ onOpenContact }) {
     }
   }
 
-  function openWhatsApp(data) {
+  function openWhatsApp(leadData) {
     const num = BOT.leadCapture.whatsappNumber;
     const lines = ["Hello HelpNexus Team! I'd like to connect with a live agent."];
-    if (data && data.name)    lines.push("*Name:* " + data.name);
-    if (data && data.email)   lines.push("*Email:* " + data.email);
-    if (data && data.service) lines.push("*Service Interested In:* " + data.service);
-    if (data && data.message) lines.push("*Message:* " + data.message);
+    if (leadData && leadData.name)    lines.push("*Name:* " + leadData.name);
+    if (leadData && leadData.email)   lines.push("*Email:* " + leadData.email);
+    if (leadData && leadData.service) lines.push("*Service Interested In:* " + leadData.service);
+    if (leadData && leadData.message) lines.push("*Message:* " + leadData.message);
     lines.push("\nPlease note it may take some time to connect to a live agent. Thank you!");
     const text = encodeURIComponent(lines.join("\n"));
     window.open("https://wa.me/" + num + "?text=" + text, "_blank");
   }
-
-  const onKey = e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(input); } };
 
   function Msg({ msg }) {
     if (msg.role === "user") return <div className="cw-msg user"><div className="cw-bubble">{msg.text}</div></div>;
@@ -232,8 +230,13 @@ function Footer() {
     <footer className="footer">
       <div className="footer-cols">
         <div>
-          <span className="footer-brand-name">{site.name}</span>
-          <p>{footer.tagline}</p>
+          <div style={{display:"flex", alignItems:"flex-start", gap:"10px", marginBottom:"6px"}}>
+            <img src="logos/HelpNexus_mini_logo.jpg" alt="" style={{height:"38px", width:"38px", objectFit:"contain", borderRadius:"5px", flexShrink:0, marginTop:"2px"}} />
+            <div style={{display:"flex", flexDirection:"column", gap:0}}>
+              <span className="footer-brand-name" style={{display:"block", lineHeight:1.1, marginBottom:"2px"}}>{site.name}</span>
+              <p style={{margin:0, fontSize:"12px", color:"#9a9eb8", lineHeight:1.4}}>{footer.tagline}</p>
+            </div>
+          </div>
           <p><a href={"mailto:" + site.email}>{site.email}</a></p>
         </div>
         <div>
@@ -331,7 +334,18 @@ const goToContact = () => {
 };
 
 ReactDOM.createRoot(document.getElementById("logo-root")).render(
-  <><span className="logo-name">{CONTENT.site.name}</span><span className="logo-slogan">{CONTENT.site.slogan}</span></>
+  <a href="#" style={{display:"flex",alignItems:"center",gap:"10px",textDecoration:"none"}}
+    onClick={e => { e.preventDefault(); if(_setPage) _setPage("about"); window.scrollTo({top:0,behavior:"smooth"}); }}>
+    <img
+      src="logos/HelpNexus_mini_logo.jpg"
+      alt=""
+      style={{ height: "54px", width: "54px", objectFit: "contain", borderRadius: "6px", flexShrink: 0 }}
+    />
+    <span>
+      <span className="logo-name">{CONTENT.site.name}</span>
+      <span className="logo-slogan">{CONTENT.site.slogan}</span>
+    </span>
+  </a>
 );
 const NAV_PAGE_MAP = {
   "services":   "services",

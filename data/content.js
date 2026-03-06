@@ -18,7 +18,7 @@
 
 /* ── ❶  CHANGE THESE — they flow everywhere automatically ─── */
 const _name    = "HelpNexus";
-const _slogan  = "Striving to enhance your business";
+const _slogan  = "Enhancing your business";
 const _email   = "contact@help-nexus.com";
 const _phone   = "+91 7676547429";
 const _address = "Bengaluru, India";
@@ -182,7 +182,7 @@ window.CONTENT_DATA = {
 
   /* ── Footer */
   "footer": {
-    "tagline": _address,
+    "tagline": "Enhancing your business",
     "quickLinks": [
       { "label": "About Us",     "href": "#" },
       { "label": "How We Work",  "href": "#" },

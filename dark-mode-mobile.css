@@ -54,6 +54,9 @@ body.dark-mode .logo-slogan            { color: #9a9eb8; }
 body.dark-mode .logo-name,
 body.dark-mode .logo-name span         { color: #c084fc; }
 
+/* ── Mini logo image: slight brightness boost in dark mode */
+body.dark-mode .logo-wrap img          { filter: brightness(1.1); }
+
 /* ── Chatbot FAB: black button is invisible on dark bg — lighten it */
 body.dark-mode .cw-fab                 { background: #2a2a3e; border: 1px solid rgba(255,255,255,0.15); }
 
