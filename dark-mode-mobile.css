@@ -1,0 +1,593 @@
+/* =============================================================================
+   DARK MODE + MOBILE ENHANCEMENTS
+   File     : dark-mode-mobile.css
+   Depends  : styles.css (load this AFTER styles.css)
+
+   TABLE OF CONTENTS
+   -----------------
+   1.  Dark-mode CSS variables
+   2.  Dark-mode — base / typography
+   3.  Dark-mode — header & nav
+   4.  Dark-mode — service bar & dropdowns
+   5.  Dark-mode — tab nav
+   6.  Dark-mode — cards, surfaces, grids
+   7.  Dark-mode — forms & inputs
+   8.  Dark-mode — footer
+   9.  Dark-mode — chat widget
+   10. Dark-mode toggle button
+   11. Mobile — header
+   12. Mobile — service bar
+   13. Mobile — tab nav
+   14. Mobile — content pages
+   15. Mobile — grids (team, testimonials, industry)
+   16. Mobile — footer
+   17. Mobile — chat widget & back-to-top
+   ============================================================================= */
+
+
+/* =============================================================================
+   1. DARK-MODE CSS VARIABLES
+   ============================================================================= */
+
+body.dark-mode {
+  /* Surfaces */
+  --color-bg:           #0f0f1a;
+  --color-bg-subtle:    #161625;
+  --color-bg-blue:      #1a1e38;
+
+  /* Borders */
+  --color-border:       #2a2a42;
+  --color-border-light: #222238;
+
+  /* Text */
+  --color-text:         #b0b4c4;
+  --color-text-light:   #8a8ea8;
+  --color-muted:        #5e6280;
+  --color-dark:         #dde0f0;
+
+  /* Brand (keep hue, lighten for dark bg) */
+  --color-primary:        #5ba8d8;
+  --color-primary-dark:   #4a90c0;
+  --color-primary-light:  #6bbde8;
+
+  /* Service bar stays dark already; subtle tweak */
+  --color-svc-bar:        #2a0808;
+  --color-svc-bar-hover:  #3d0f0f;
+
+  /* Footer stays dark — minor brightening */
+  --color-footer-bg:      #0a1520;
+  --color-footer-bottom:  #060e18;
+}
+
+
+/* =============================================================================
+   2. DARK-MODE — BASE / TYPOGRAPHY
+   ============================================================================= */
+
+body.dark-mode {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+body.dark-mode a { color: var(--color-primary); }
+body.dark-mode a:hover { color: var(--color-accent); }
+
+/* Shared page wrappers */
+body.dark-mode .simple-page-wrap p,
+body.dark-mode .simple-page-wrap ul li { color: var(--color-text); }
+
+body.dark-mode .simple-page-wrap h1,
+body.dark-mode .simple-page-wrap h2 { color: var(--color-dark); }
+
+/* Article */
+body.dark-mode .article h1,
+body.dark-mode .article h2 { color: var(--color-primary); }
+
+body.dark-mode .article p,
+body.dark-mode .article ul.blist li { color: var(--color-text); }
+
+body.dark-mode .article h2 { border-bottom-color: var(--color-border); }
+body.dark-mode .article ul.blist li { border-bottom-color: var(--color-border-light); }
+
+/* Main wrap */
+body.dark-mode .main-wrap { background: var(--color-bg); }
+
+
+/* =============================================================================
+   3. DARK-MODE — HEADER & NAV
+   ============================================================================= */
+
+body.dark-mode .top-header {
+  background: var(--color-bg);
+  border-bottom-color: var(--color-border);
+}
+
+body.dark-mode .top-links a { color: var(--color-dark); }
+body.dark-mode .top-links a { border-color: var(--color-border); }
+body.dark-mode .top-links a:hover { color: var(--color-primary); }
+
+body.dark-mode .phone-wrap .ph-num { color: var(--color-dark); }
+
+/* Search bar */
+body.dark-mode .search-wrap { border-color: var(--color-border); }
+body.dark-mode .search-wrap input {
+  background: var(--color-bg-subtle);
+  color: var(--color-text);
+}
+body.dark-mode .search-wrap button {
+  background: #1e1e30;
+  border-left-color: var(--color-border);
+  color: var(--color-text);
+}
+
+
+/* =============================================================================
+   4. DARK-MODE — SERVICE BAR & DROPDOWNS
+   ============================================================================= */
+
+body.dark-mode .service-bar { background: var(--color-svc-bar); }
+body.dark-mode .svc-item:hover > a { background: var(--color-svc-bar-hover); }
+
+body.dark-mode .svc-dropdown {
+  background: #161625;
+  border-top-color: var(--color-accent);
+  box-shadow: 0 6px 20px rgba(0,0,0,.5);
+}
+
+body.dark-mode .svc-dropdown a {
+  color: var(--color-dark);
+  border-bottom-color: var(--color-border-light);
+}
+
+body.dark-mode .svc-dropdown a:hover {
+  background: var(--color-bg-blue);
+  color: var(--color-primary);
+}
+
+
+/* =============================================================================
+   5. DARK-MODE — TAB NAV
+   ============================================================================= */
+
+body.dark-mode .tab-nav { border-bottom-color: var(--color-primary-light); }
+body.dark-mode .tab-nav-inner a { color: var(--color-dark); }
+body.dark-mode .tab-nav-inner a:hover { color: var(--color-primary); }
+
+
+/* =============================================================================
+   6. DARK-MODE — CARDS, SURFACES, GRIDS
+   ============================================================================= */
+
+/* Generic white cards */
+body.dark-mode .about-card,
+body.dark-mode .team-card,
+body.dark-mode .testimonial-card,
+body.dark-mode .story-card,
+body.dark-mode .industry-card,
+body.dark-mode .svc-section,
+body.dark-mode .contact-info-box,
+body.dark-mode .office-box,
+body.dark-mode .toc-box,
+body.dark-mode .quote-box {
+  background: #161625;
+  border-color: var(--color-border);
+}
+
+/* Subtle-background cards */
+body.dark-mode .svc-card,
+body.dark-mode .svc-sub-item,
+body.dark-mode .placeholder-card {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border);
+}
+
+/* Logo strip */
+body.dark-mode .logo-strip-wrap {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border);
+}
+body.dark-mode .logo-chip {
+  background: #161625;
+  border-color: var(--color-border);
+}
+
+/* Accordion (About sidebar) */
+body.dark-mode .about-accordion {
+  background: #161625;
+  border-color: var(--color-border);
+}
+
+/* Text inside cards */
+body.dark-mode .testimonial-card .quote,
+body.dark-mode .about-section-body p,
+body.dark-mode .about-blist li,
+body.dark-mode .svc-card-desc,
+body.dark-mode .svc-sub-desc,
+body.dark-mode .svc-section-sub,
+body.dark-mode .ind-desc,
+body.dark-mode .step-body p,
+body.dark-mode .story-card p,
+body.dark-mode .office-card { color: var(--color-text); }
+
+body.dark-mode .about-card-heading,
+body.dark-mode .svc-section-title,
+body.dark-mode .svc-card-name,
+body.dark-mode .ind-name,
+body.dark-mode .step-num + .step-body h3,
+body.dark-mode .story-card h3,
+body.dark-mode .svc-sub-name,
+body.dark-mode .team-card .t-name,
+body.dark-mode .testimonial-card .author { color: var(--color-dark); }
+
+body.dark-mode .testimonial-card .role,
+body.dark-mode .team-card .t-role { color: var(--color-muted); }
+
+/* Stat pill & jump links */
+body.dark-mode .story-stat { background: #1a2a4a; color: #7bade0; }
+
+body.dark-mode .svc-jump-link {
+  background: #1a2040;
+  color: var(--color-primary);
+  border-color: var(--color-border);
+}
+body.dark-mode .svc-jump-link:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* TOC box */
+body.dark-mode .toc-box h3 {
+  background: var(--color-bg-blue);
+  color: var(--color-primary);
+  border-bottom-color: var(--color-border);
+}
+body.dark-mode .toc-box ul li { border-bottom-color: var(--color-border-light); }
+body.dark-mode .toc-box ul li a { color: var(--color-text); }
+body.dark-mode .toc-box ul li a:hover { background: var(--color-bg-blue); color: var(--color-primary); }
+
+/* Quote box */
+body.dark-mode .quote-box h3 { color: var(--color-dark); }
+body.dark-mode .quote-box .qsub { color: var(--color-text-light); }
+body.dark-mode .captcha-code { background: #1e1e30; border-color: var(--color-border); color: var(--color-dark); }
+body.dark-mode .qnote,
+body.dark-mode .qnote a { color: var(--color-muted); }
+body.dark-mode .qcontact { border-top-color: var(--color-border-light); }
+body.dark-mode .qc-row { color: var(--color-text); }
+
+/* Breadcrumb */
+body.dark-mode .breadcrumb { border-bottom-color: var(--color-border-light); }
+body.dark-mode .breadcrumb-inner,
+body.dark-mode .breadcrumb-inner a { color: var(--color-muted); }
+
+/* Contact page */
+body.dark-mode .contact-page-wrap { background: var(--color-bg); }
+body.dark-mode .contact-form-section h1 { color: var(--color-primary); }
+body.dark-mode .contact-form-section .intro { color: var(--color-text-light); }
+body.dark-mode .contact-form label { color: var(--color-text); }
+
+body.dark-mode .contact-info-box .box-title,
+body.dark-mode .office-box .box-title {
+  background: #1a3050;
+  color: #fff;
+}
+body.dark-mode .contact-info-box .box-body { background: #161625; }
+body.dark-mode .ci-row { color: var(--color-text); border-bottom-color: var(--color-border-light); }
+body.dark-mode .ci-row .ci-label { color: var(--color-muted); }
+body.dark-mode .office-card { color: var(--color-text); border-bottom-color: var(--color-border-light); }
+body.dark-mode .office-card strong { color: var(--color-primary); }
+
+/* Contact sidebar accordion (About page) */
+body.dark-mode .asi-row span { color: var(--color-text); }
+
+
+/* =============================================================================
+   7. DARK-MODE — FORMS & INPUTS
+   ============================================================================= */
+
+body.dark-mode .contact-form input,
+body.dark-mode .contact-form select,
+body.dark-mode .contact-form textarea,
+body.dark-mode .quote-box input,
+body.dark-mode .quote-box textarea,
+body.dark-mode .about-accordion-body input,
+body.dark-mode .about-accordion-body textarea {
+  background: #1e1e30;
+  border-color: var(--color-border);
+  color: var(--color-dark);
+}
+
+body.dark-mode .contact-form input:focus,
+body.dark-mode .contact-form select:focus,
+body.dark-mode .contact-form textarea:focus,
+body.dark-mode .quote-box input:focus,
+body.dark-mode .quote-box textarea:focus,
+body.dark-mode .about-accordion-body input:focus,
+body.dark-mode .about-accordion-body textarea:focus {
+  border-color: var(--color-primary);
+  background: #222240;
+}
+
+body.dark-mode .contact-form .reset-btn {
+  background: #1e1e30;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+body.dark-mode .form-note-bottom { color: var(--color-muted); }
+body.dark-mode .about-accordion-body .qnote { color: var(--color-muted); }
+
+/* Success / error banners */
+body.dark-mode .success-msg {
+  background: #0d2a10;
+  border-color: #1a5c20;
+  color: #6fcf79;
+}
+body.dark-mode .form-error-banner {
+  background: #2a0a0a;
+  border-color: #6b1a1a;
+  color: #f08080;
+}
+
+
+/* =============================================================================
+   8. DARK-MODE — FOOTER
+   ============================================================================= */
+
+/* Footer colours come from --color-footer-bg / --color-footer-bottom overrides
+   already set in section 1. No extra rules needed — footer text is already
+   white/semi-white so it reads fine on dark. */
+
+
+/* =============================================================================
+   9. DARK-MODE — CHAT WIDGET
+   ============================================================================= */
+
+/* The chat widget already uses its own dark (#0a0a0a) palette, so it looks
+   great in both modes. We only adjust the FAB tooltip/border if needed. */
+body.dark-mode .cw-fab {
+  box-shadow: 0 8px 32px rgba(0,0,0,.6), 0 2px 8px rgba(0,0,0,.4);
+}
+
+/* Back-to-top button */
+body.dark-mode .back-to-top {
+  background: var(--color-primary);
+}
+body.dark-mode .back-to-top:hover {
+  background: var(--color-primary-dark);
+}
+
+
+/* =============================================================================
+   10. DARK-MODE TOGGLE BUTTON
+   ============================================================================= */
+
+.dm-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid var(--color-border, #ddd);
+  border-radius: 20px;
+  padding: 5px 13px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: var(--font-base);
+  font-weight: 600;
+  color: var(--color-dark, #1c0202);
+  white-space: nowrap;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.dm-toggle:hover {
+  background: rgba(128,128,128,.1);
+}
+
+.dm-toggle .dm-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* In dark mode the toggle inherits updated --color-dark / --color-border */
+body.dark-mode .dm-toggle {
+  color: var(--color-dark);
+  border-color: var(--color-border);
+}
+
+
+/* =============================================================================
+   11. MOBILE — HEADER  (≤ 768px)
+   ============================================================================= */
+
+@media (max-width: 768px) {
+  .top-header { padding: 8px 0; }
+
+  .top-header-inner {
+    flex-wrap: wrap;
+    row-gap: 8px;
+    padding: 0 14px;
+  }
+
+  .logo-wrap { min-width: unset; }
+  .logo-name  { font-size: 24px; }
+
+  .header-right {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  /* Hide secondary text nav on mobile — service bar already handles navigation */
+  .top-links { display: none; }
+
+  .phone-wrap .ph-num { font-size: 15px; }
+  .phone-wrap .ph-icon { font-size: 16px; }
+
+  /* Shrink search on mobile */
+  .search-wrap input { width: 110px; font-size: 12px; }
+
+  .dm-toggle { font-size: 12px; padding: 4px 10px; }
+}
+
+/* Very small phones */
+@media (max-width: 400px) {
+  .logo-name { font-size: 20px; }
+  .header-actions { gap: 8px; }
+  /* Stack contact btn + dark toggle vertically if needed */
+  .header-actions { flex-wrap: wrap; justify-content: flex-end; }
+}
+
+
+/* =============================================================================
+   12. MOBILE — SERVICE BAR  (≤ 768px)
+   ============================================================================= */
+
+@media (max-width: 768px) {
+  .service-bar-inner {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;           /* Firefox */
+  }
+  .service-bar-inner::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+  .svc-item > a {
+    font-size: 10px;
+    padding: 10px 10px;
+    white-space: nowrap;
+  }
+
+  /* Keep dropdowns usable on tap — position relative to viewport */
+  .svc-dropdown {
+    position: fixed;
+    top: auto;
+    left: 0;
+    right: 0;
+    min-width: 100%;
+    z-index: 9000;
+  }
+}
+
+
+/* =============================================================================
+   13. MOBILE — TAB NAV  (≤ 768px)
+   ============================================================================= */
+
+@media (max-width: 768px) {
+  .tab-nav-inner {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 10px;
+  }
+  .tab-nav-inner::-webkit-scrollbar { display: none; }
+
+  .tab-nav-inner a {
+    font-size: 12px;
+    padding: 10px 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+
+/* =============================================================================
+   14. MOBILE — CONTENT PAGES  (≤ 640px)
+   ============================================================================= */
+
+@media (max-width: 640px) {
+  /* Simple page (about, privacy, etc.) */
+  .simple-page-wrap { padding: 24px 14px 56px; }
+
+  /* About layout (already has its own media query; reinforce padding) */
+  .about-layout { padding: 24px 14px 56px; }
+
+  /* Services page */
+  .svc-page-jumps { padding: 12px 14px 0; gap: 7px; }
+  .svc-jump-link  { font-size: 11.5px; padding: 5px 10px; }
+  .svc-page-wrap  { padding: 18px 14px 56px; }
+  .svc-section    { padding: 20px 14px 16px; border-radius: 8px; }
+  .svc-cards-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Contact page */
+  .contact-page-inner { padding: 0 14px; gap: 24px; }
+  .contact-form-section h1 { font-size: 22px; }
+
+  /* Steps */
+  .steps-list li { gap: 12px; }
+  .step-num { width: 36px; height: 36px; font-size: 0.85rem; }
+
+  /* Story cards */
+  .story-card { padding: 18px 14px; }
+
+  /* Section heading */
+  .section-heading-row { padding: 12px 14px 0; }
+  .section-heading-row h2 { font-size: 18px; }
+}
+
+@media (max-width: 480px) {
+  /* Contact form — single column */
+  .contact-form .form-row { grid-template-columns: 1fr; }
+  .contact-form .submit-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .contact-form .submit-btn,
+  .contact-form .reset-btn { width: 100%; text-align: center; }
+
+  /* Very small service card grid */
+  .svc-cards-grid { grid-template-columns: 1fr; }
+}
+
+
+/* =============================================================================
+   15. MOBILE — GRIDS  (≤ 600px)
+   ============================================================================= */
+
+@media (max-width: 600px) {
+  .team-grid        { grid-template-columns: 1fr 1fr; }
+  .testimonial-grid { grid-template-columns: 1fr; }
+  .industry-grid    { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 380px) {
+  .team-grid { grid-template-columns: 1fr; }
+}
+
+
+/* =============================================================================
+   16. MOBILE — FOOTER  (≤ 768px / 480px already in styles.css)
+   Supplements the existing rules in styles.css.
+   ============================================================================= */
+
+@media (max-width: 768px) {
+  .footer-cols { padding: 28px 14px 20px; gap: 24px; }
+}
+
+@media (max-width: 480px) {
+  .footer-bottom-inner { text-align: center; }
+}
+
+
+/* =============================================================================
+   17. MOBILE — CHAT WIDGET & BACK-TO-TOP  (≤ 480px)
+   ============================================================================= */
+
+@media (max-width: 480px) {
+  /* Bring FAB closer to edge */
+  .cw-root { bottom: 16px; right: 16px; }
+
+  /* Chat window — full-width with gutters */
+  .cw-window {
+    width: calc(100vw - 32px);
+    max-height: 72vh;
+    right: 0;
+    bottom: 68px;
+    border-radius: 16px;
+  }
+
+  /* Back-to-top: avoid overlapping FAB */
+  .back-to-top { bottom: 90px; left: 16px; }
+}

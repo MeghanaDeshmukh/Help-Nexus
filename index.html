@@ -2,11 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HelpNexus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>HelpNexus — Expert Support &amp; Help Desk Solutions</title>
+
+  <!-- ═══ SEO Meta Tags ═══ -->
+  <meta name="description" content="HelpNexus provides expert data entry, customer support, help desk, and managed services solutions. Reduce response times, delight customers, and scale your support operations effortlessly." />
+  <meta name="keywords" content="data entry, data pre-processing, data services, help desk, customer support, managed services, IT support, HelpNexus, BPO" />
+  <meta name="author" content="HelpNexus" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.helpnexus.com/" />
+
+  <!-- ═══ Open Graph (Facebook, LinkedIn) ═══ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.helpnexus.com/" />
+  <meta property="og:title" content="HelpNexus — Expert Support &amp; Help Desk Solutions" />
+  <meta property="og:description" content="HelpNexus provides expert data entry, data pre-processing, customer support, help desk, and managed services solutions." />
+  <meta property="og:image" content="https://www.helpnexus.com/og-image.png" />
+  <meta property="og:site_name" content="HelpNexus" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- ═══ Twitter / X Card ═══ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@helpnexus" />
+  <meta name="twitter:title" content="HelpNexus — Expert Support &amp; Help Desk Solutions" />
+  <meta name="twitter:description" content="Expert data entry, data pre-processing, customer support, help desk, and managed services. Scale your support with HelpNexus." />
+  <meta name="twitter:image" content="https://www.helpnexus.com/og-image.png" />
+
+  <!-- ═══ Structured Data (JSON-LD) for Google ═══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "HelpNexus",
+    "url": "https://www.helpnexus.com",
+    "logo": "https://www.helpnexus.com/logo.png",
+    "description": "HelpNexus provides expert customer support, help desk, and managed services solutions.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "availableLanguage": "English"
+    }
+  }
+  </script>
+
+  <!-- ═══ Mobile / PWA hints ═══ -->
+  <meta name="theme-color" content="#1a6fa3" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="HelpNexus" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="services.css" />
+  <!-- Dark mode + mobile responsiveness (all CSS changes live here) -->
+  <link rel="stylesheet" href="dark-mode-mobile.css" />
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <script src="https://assets.calendly.com/assets/external/widget.js"></script>
   <style>
@@ -358,7 +408,12 @@
     <div class="logo-wrap" id="logo-root"></div>
     <div class="header-right">
       <div class="top-links" id="header-nav-root"></div>
-      <div class="header-actions"><div id="contact-btn-root"></div></div>
+      <div class="header-actions">
+        <button class="dm-toggle" id="dm-toggle-btn" aria-label="Toggle dark mode">
+          <span class="dm-icon">🌙</span><span class="dm-label">Dark</span>
+        </button>
+        <div id="contact-btn-root"></div>
+      </div>
     </div>
   </div>
 </header>
@@ -388,5 +443,114 @@
 <!-- ── App shell: router, tab-nav, header, footer, chat ── -->
 <script type="text/babel" src="pages/services.js"></script>
 <script type="text/babel" src="pages/app.js"></script>
+<!-- ── Dark Mode Script ── -->
+<script>
+(function () {
+  var btn   = document.getElementById('dm-toggle-btn');
+  var icon  = btn && btn.querySelector('.dm-icon');
+  var label = btn && btn.querySelector('.dm-label');
+
+  function apply(dark) {
+    document.body.classList.toggle('dark-mode', dark);
+    if (icon)  icon.textContent  = dark ? '☀️' : '🌙';
+    if (label) label.textContent = dark ? 'Light' : 'Dark';
+    try { localStorage.setItem('hn-dark', dark ? '1' : '0'); } catch (e) {}
+  }
+
+  // Restore saved preference, falling back to OS preference
+  var saved;
+  try { saved = localStorage.getItem('hn-dark'); } catch (e) {}
+  var osDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  apply(saved !== null ? saved === '1' : osDark);
+
+  if (btn) btn.addEventListener('click', function () {
+    apply(!document.body.classList.contains('dark-mode'));
+  });
+
+  // Follow OS changes when user has no saved preference
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+      try { if (!localStorage.getItem('hn-dark')) apply(e.matches); } catch (x) { apply(e.matches); }
+    });
+  }
+}());
+</script>
+
+<!--
+  ════════════════════════════════════════════════════════════
+  SITEMAP — save this block as  /sitemap.xml  at your domain
+  root, then submit the URL to Google Search Console:
+  https://search.google.com/search-console
+  ════════════════════════════════════════════════════════════
+
+  <?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+      <loc>https://www.helpnexus.com/</loc>
+      <lastmod>2025-01-01</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>1.0</priority>
+    </url>
+
+    <url>
+      <loc>https://www.helpnexus.com/#services</loc>
+      <lastmod>2025-01-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+
+    <url>
+      <loc>https://www.helpnexus.com/#about</loc>
+      <lastmod>2025-01-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+    </url>
+
+    <url>
+      <loc>https://www.helpnexus.com/#customers</loc>
+      <lastmod>2025-01-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+    </url>
+
+    <url>
+      <loc>https://www.helpnexus.com/#how-we-work</loc>
+      <lastmod>2025-01-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+    </url>
+
+    <url>
+      <loc>https://www.helpnexus.com/#success-stories</loc>
+      <lastmod>2025-01-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+    </url>
+
+    <url>
+      <loc>https://www.helpnexus.com/#testimonials</loc>
+      <lastmod>2025-01-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+
+    <url>
+      <loc>https://www.helpnexus.com/#contact</loc>
+      <lastmod>2025-01-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+    </url>
+
+  </urlset>
+
+  ════════════════════════════════════════════════════════════
+  Also add  /robots.txt  containing:
+  ════════════════════════════════════════════════════════════
+
+  User-agent: *
+  Allow: /
+  Sitemap: https://www.helpnexus.com/sitemap.xml
+-->
 </body>
 </html>
