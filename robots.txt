@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.help-nexus.com/sitemap.xml
+Sitemap: https://help-nexus.com/sitemap.xml
