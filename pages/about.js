@@ -238,9 +238,16 @@ function AboutPage({ onGoContact }) {
             <div className="about-contact-rows">
               {quoteBox.contactRows.map((row, i) => (
                 <div className="asi-row" key={i}>
-                  <span className="asi-icon">{row.icon}</span>
+                  {row.icon === "WHATSAPP"
+                    ? <span className="asi-icon" style={{display:"flex",alignItems:"center"}}>
+                        <svg width="16" height="16" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="16" cy="16" r="16" fill="#25D366"/>
+                          <path d="M23.5 8.5A10.44 10.44 0 0 0 16 5.5C10.2 5.5 5.5 10.2 5.5 16c0 1.84.48 3.63 1.39 5.21L5.5 26.5l5.42-1.42A10.44 10.44 0 0 0 16 26.5c5.8 0 10.5-4.7 10.5-10.5 0-2.8-1.09-5.43-3-7.5zm-7.5 16.14a8.67 8.67 0 0 1-4.42-1.21l-.32-.19-3.22.84.86-3.13-.2-.33A8.63 8.63 0 0 1 7.36 16c0-4.77 3.88-8.64 8.64-8.64 2.31 0 4.47.9 6.1 2.53A8.58 8.58 0 0 1 24.64 16c0 4.77-3.87 8.64-8.64 8.64zm4.74-6.47c-.26-.13-1.53-.75-1.77-.84-.24-.09-.41-.13-.58.13-.17.26-.65.84-.8 1.01-.15.17-.29.19-.55.06-.26-.13-1.09-.4-2.08-1.28-.77-.68-1.29-1.53-1.44-1.78-.15-.26-.02-.4.11-.52.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.58-1.39-.79-1.9-.21-.5-.42-.43-.58-.44h-.49c-.17 0-.45.06-.68.32-.23.26-.89.87-.89 2.12s.91 2.46 1.04 2.63c.13.17 1.79 2.73 4.33 3.83.6.26 1.07.42 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.53-.63 1.74-1.23.22-.6.22-1.12.15-1.23-.06-.11-.23-.17-.49-.3z" fill="white"/>
+                        </svg>
+                      </span>
+                    : <span className="asi-icon">{row.icon}</span>}
                   {row.href
-                    ? <a href={row.href}>{row.text}</a>
+                    ? <a href={row.href} target={row.icon === "WHATSAPP" ? "_blank" : undefined} rel="noopener noreferrer">{row.text}</a>
                     : <span>{row.text}</span>}
                 </div>
               ))}

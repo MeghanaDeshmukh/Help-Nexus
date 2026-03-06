@@ -70,12 +70,7 @@ tagBg: "#c8e6f7",            // fresh, bright tag fill
         </div>
 
         {/* ── Leader Cards ── */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "28px",
-          marginTop: 48,
-        }}>
+        <div className="leaders-grid">
           {leaders.map((l, i) => (
             <div
               key={i}

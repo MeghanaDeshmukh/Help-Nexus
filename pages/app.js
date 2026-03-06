@@ -70,10 +70,16 @@ function ChatWidget({ onOpenContact }) {
     if (lower.includes("contact form") || lower.includes("get a free quote")) {
       botReply("Opening the contact form for you!", [], { type:"open_contact" }); return;
     }
+    if (lower.includes("chat on whatsapp")) {
+      openWhatsApp(leadData);
+      botReply("Opening WhatsApp for you! 💬 Please note it may take a little time to connect with a live agent. We appreciate your patience.", ["What services do you offer?", "Open contact form"]);
+      return;
+    }
     const faq = findBestFaq(t);
     if (faq) {
       if      (faq.action === "open_contact")     botReply(faq.response, faq.quickReplies||[], { type:"open_contact" });
       else if (faq.action === "show_contact_cta") botReply(faq.response, faq.quickReplies||[], { type:"contact_cta"  });
+      else if (faq.action === "whatsapp_cta")     botReply(faq.response, faq.quickReplies||[], { type:"whatsapp_cta" });
       else                                         botReply(faq.response, faq.quickReplies||[]);
     } else { botReply(BOT.fallback, BOT.openingReplies); }
   }
@@ -89,7 +95,8 @@ function ChatWidget({ onOpenContact }) {
       setLeadMode(false); setLeadStep(0);
       botReply(
         BOT.leadCapture.confirmationMessage.replace("{name}", nd.name).replace("{email}", nd.email),
-        ["What services do you offer?", "How does it work?"]
+        ["What services do you offer?", "How does it work?"],
+        { type: "whatsapp_cta" }
       );
       try {
         await emailjs.send(window._EMAILJS_SVC, window._EMAILJS_TPL, {
@@ -101,6 +108,18 @@ function ChatWidget({ onOpenContact }) {
       } catch(e) { console.warn("EmailJS:", e); }
       setLeadData({ name:"", email:"", service:"", message:"" });
     }
+  }
+
+  function openWhatsApp(data) {
+    const num = BOT.leadCapture.whatsappNumber;
+    const lines = ["Hello HelpNexus Team! I'd like to connect with a live agent."];
+    if (data && data.name)    lines.push("*Name:* " + data.name);
+    if (data && data.email)   lines.push("*Email:* " + data.email);
+    if (data && data.service) lines.push("*Service Interested In:* " + data.service);
+    if (data && data.message) lines.push("*Message:* " + data.message);
+    lines.push("\nPlease note it may take some time to connect to a live agent. Thank you!");
+    const text = encodeURIComponent(lines.join("\n"));
+    window.open("https://wa.me/" + num + "?text=" + text, "_blank");
   }
 
   const onKey = e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(input); } };
@@ -118,6 +137,11 @@ function ChatWidget({ onOpenContact }) {
             <div>{CONTENT.site.email}</div><div>{CONTENT.site.phone}</div>
             <button className="cw-contact-cta-btn" onClick={() => { onOpenContact(); setOpen(false); }}>Open Contact Form</button>
           </div>}
+        {msg.extra && msg.extra.type === "whatsapp_cta" &&
+          <button className="cw-contact-cta-btn" style={{marginTop:8,borderRadius:10,padding:"9px 14px",background:"#25D366"}}
+            onClick={() => openWhatsApp(leadData)}>
+            💬 Open WhatsApp
+          </button>}
         {msg.chips && msg.chips.length > 0 &&
           <div className="cw-chips">
             {msg.chips.map((c, i) => <button key={i} className="cw-chip" onClick={() => send(c)}>{c}</button>)}

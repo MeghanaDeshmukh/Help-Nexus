@@ -141,8 +141,17 @@ window.CHATBOT_DATA = {
       "id": "contact",
       "keywords": ["contact", "talk", "speak", "reach", "email", "call", "phone", "get in touch", "connect", "team", "sales", "human", "person", "representative"],
       "response": "I'd love to connect you with our team! You can reach us via:<br/><br/>📧 <strong>Email:</strong> contact@help-nexus.com<br/>📞 <strong>Phone:</strong> +91 7676547429<br/>⏰ <strong>Hours:</strong> Mon–Fri, 9am–6pm IST<br/><br/>Or fill out our contact form and we'll get back to you within 24 hours:",
-      "quickReplies": ["Open contact form"],
+      "quickReplies": ["Open contact form", "Chat on WhatsApp", "Talk to the team"],
       "action": "show_contact_cta"
+    },
+
+    /* ── Live chat / WhatsApp ── */
+    {
+      "id": "whatsapp",
+      "keywords": ["whatsapp", "live chat", "chat now", "instant", "real person", "real human", "agent", "live agent", "live support"],
+      "response": "You can reach us directly on WhatsApp! 💬<br/><br/>Please note — connecting to a live agent may take a little time depending on availability. We'll get back to you as soon as possible.<br/><br/>⏰ <strong>Hours:</strong> Mon–Fri, 9am–6pm IST",
+      "quickReplies": ["Chat on WhatsApp", "Talk to the team", "Open contact form"],
+      "action": "whatsapp_cta"
     },
 
     /* ── Free quote / lead capture ── */
@@ -162,14 +171,15 @@ window.CHATBOT_DATA = {
      and then sends the same EmailJS email as the contact form.
   ─────────────────────────────────────────────────────────────*/
   "leadCapture": {
-    "triggerPhrases": ["talk to the team", "speak to someone", "contact sales", "get in touch via chat", "leave my details"],
+    "triggerPhrases": ["talk to the team", "speak to someone", "contact sales", "get in touch via chat", "leave my details", "chat on whatsapp", "live chat", "speak to a human", "talk to a human"],
     "steps": [
       { "field": "name",    "prompt": "Sure! Let's get you connected. 😊 What's your <strong>name</strong>?" },
       { "field": "email",   "prompt": "Nice to meet you, {name}! What's the best <strong>email address</strong> to reach you?" },
       { "field": "service", "prompt": "And which <strong>service</strong> are you interested in? (or just type 'not sure')" },
       { "field": "message", "prompt": "Last one — briefly describe what you need or any questions you have:" }
     ],
-    "confirmationMessage": "Perfect, {name}! I've sent your details to our team. Expect a reply at <strong>{email}</strong> within 24 hours. 🎉",
+    "confirmationMessage": "Perfect, {name}! I've sent your details to our team. Expect a reply at <strong>{email}</strong> within 24 hours. 🎉<br/><br/>You can also reach us directly on WhatsApp — we'll send your details along so you won't have to repeat yourself:",
+    "whatsappNumber": "917676547429",
     "emailSubject": "New Chat Lead: {name}"
   }
 

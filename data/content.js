@@ -144,7 +144,7 @@ window.CONTENT_DATA = {
     "contactRows": [
       { "icon": "📞", "text": _phone,   "href": "tel:"    + _phone },
       { "icon": "✉",  "text": _email,   "href": "mailto:" + _email },
-      { "icon": "💬", "text": "Live chat with us", "href": "#" },
+      { "icon": "WHATSAPP", "text": "+91 7676547429", "href": "https://wa.me/917676547429" },
       { "icon": "📍", "text": _address, "href": null }
     ]
   },
@@ -162,7 +162,7 @@ window.CONTENT_DATA = {
         "rows": [
           { "icon": "📞", "label": "Phone",         "text": _phone,   "href": "tel:"    + _phone },
           { "icon": "✉",  "label": "Email Us",      "text": _email,   "href": "mailto:" + _email },
-          { "icon": "💬", "label": "Live Chat",     "text": "Start a live chat", "href": "#" },
+          { "icon": "WHATSAPP", "label": "WhatsApp",       "text": "+91 7676547429", "href": "https://wa.me/917676547429" },
           { "icon": "⏰", "label": "Business Hours","text": _hours,   "href": null }
         ]
       },

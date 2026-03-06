@@ -50,6 +50,16 @@ body.dark-mode .testimonial-card .role { color: #9a9eb8; }
 body.dark-mode .svc-section-sub        { color: #9a9eb8; }
 body.dark-mode .logo-slogan            { color: #9a9eb8; }
 
+/* ── Logo name: --color-danger is #220754 (near black) — brighten for dark bg */
+body.dark-mode .logo-name,
+body.dark-mode .logo-name span         { color: #c084fc; }
+
+/* ── Chatbot FAB: black button is invisible on dark bg — lighten it */
+body.dark-mode .cw-fab                 { background: #2a2a3e; border: 1px solid rgba(255,255,255,0.15); }
+
+/* ── Chatbot window: ensure it stays visible in dark mode */
+body.dark-mode .cw-window              { box-shadow: 0 24px 80px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.12); }
+
 /* ── Heading order: .step-body h3 sits inside sections that use h2,
       so we visually style h3 the same but it's semantically correct ── */
 .step-body h3 { font-size: 15px; font-weight: 700; margin: 0 0 6px; color: #1a1a2e; }
@@ -496,9 +506,6 @@ body.dark-mode .dm-toggle {
     white-space: nowrap;
   }
 
-  /* Disable CSS hover-based dropdowns on touch — JS handles taps instead */
-  .svc-item:hover .svc-dropdown { display: none; }
-
   /* Dropdown: sits directly below the bar item, high z-index */
   .svc-dropdown {
     position: absolute;
@@ -508,10 +515,14 @@ body.dark-mode .dm-toggle {
     min-width: 200px;
     max-width: 90vw;
     z-index: 2000;
+    display: none;
   }
 
-  /* JS toggles this class on tap */
-  .svc-item.open .svc-dropdown { display: block; }
+  /* Disable CSS hover-based dropdowns on touch — React state handles taps */
+  .svc-item:hover .svc-dropdown { display: none; }
+
+  /* React adds .open class on tap — must come AFTER hover rule to win */
+  .svc-item.open .svc-dropdown { display: block !important; }
 }
 
 
